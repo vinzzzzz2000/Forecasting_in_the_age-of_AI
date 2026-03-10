@@ -138,6 +138,104 @@
   .title-deco { position: absolute; right: 52px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; opacity: 0.18; }
   .title-deco span { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px); color: var(--yellow); text-align: right; }
 
+
+  /* ── SLIDE 2: USE CASE TILES ── */
+  .iuc-grid { display: flex; gap: clamp(12px,1.5vw,22px); width: 100%; max-width: 1050px; margin: 0 auto; }
+  .iuc-tile {
+    flex: 1; position: relative; cursor: pointer;
+    background: var(--dark3); border: 1px solid var(--border); border-radius: 12px;
+    padding: clamp(16px,2vh,26px) clamp(16px,1.8vw,24px);
+    display: flex; flex-direction: column; gap: 0;
+    transition: border-color 0.28s, box-shadow 0.28s, transform 0.28s;
+    overflow: hidden; min-height: clamp(200px,30vh,320px);
+  }
+  .iuc-tile::after {
+    content: ''; position: absolute; inset: 0; border-radius: 12px;
+    background: radial-gradient(ellipse at 30% 0%, rgba(230,0,126,0.08), transparent 65%);
+    opacity: 0; transition: opacity 0.35s;
+  }
+  .iuc-tile:hover { border-color: rgba(230,0,126,0.55); box-shadow: 0 0 32px rgba(230,0,126,0.1), 0 4px 20px rgba(0,0,0,0.3); transform: translateY(-3px); }
+  .iuc-tile:hover::after { opacity: 1; }
+  .iuc-tile.iuc-dimmed { opacity: 0.15; pointer-events: none; transform: scale(0.97); filter: blur(1px); }
+  .iuc-tile-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: clamp(4px,0.6vh,8px); position: relative; z-index: 1; }
+  .iuc-tile-num { font-family: var(--font-mono); font-size: clamp(12px,1.3vh,15px); font-weight: 700; color: var(--magenta); opacity: 0.6; }
+  .iuc-tile-title { font-family: var(--font-mono); font-size: clamp(15px,1.9vh,21px); font-weight: 700; color: var(--text); line-height: 1.25; position: relative; z-index: 1; }
+  .iuc-tile-viz { flex: 1; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+  .iuc-tile-viz canvas { width: 100%; height: 100%; display: block; }
+  .iuc-tile-cta { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px); color: var(--magenta); letter-spacing: 0.1em; opacity: 0; transform: translateY(6px); transition: opacity 0.25s, transform 0.25s; position: relative; z-index: 1; text-align: right; padding-top: 6px; }
+  .iuc-tile:hover .iuc-tile-cta { opacity: 1; transform: translateY(0); }
+
+  /* Stagger entrance */
+  @keyframes iucTileIn { from { opacity:0; transform:translateY(22px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+  .slide.active .iuc-tile { animation: iucTileIn 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+  .slide.active .iuc-tile:nth-child(1) { animation-delay: 0.12s; }
+  .slide.active .iuc-tile:nth-child(2) { animation-delay: 0.24s; }
+  .slide.active .iuc-tile:nth-child(3) { animation-delay: 0.36s; }
+
+  /* Overlay for use-case zoom */
+  .iuc-overlay { display: none; position: absolute; inset: 0; z-index: 60; background: rgba(8,10,14,0.55); }
+  .iuc-overlay.active { display: block; }
+  .iuc-ov-inner {
+    position: fixed;
+    background: var(--dark2);
+    border: 1px solid rgba(230,0,126,0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 60px rgba(230,0,126,0.12);
+    transition: top 0.46s cubic-bezier(0.16,1,0.3,1),
+                left 0.46s cubic-bezier(0.16,1,0.3,1),
+                width 0.46s cubic-bezier(0.16,1,0.3,1),
+                height 0.46s cubic-bezier(0.16,1,0.3,1),
+                border-radius 0.46s cubic-bezier(0.16,1,0.3,1);
+    z-index: 61;
+  }
+  .iuc-ov-content {
+    position: absolute; inset: 0;
+    padding: clamp(28px,4vh,48px) clamp(32px,4vw,56px);
+    display: flex; flex-direction: column;
+    opacity: 0; transition: opacity 0.28s ease 0.34s; overflow: hidden;
+  }
+  .iuc-ov-content.visible { opacity: 1; }
+  .iuc-ov-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; z-index: 2; line-height: 1; transition: color 0.2s; }
+  .iuc-ov-close:hover { color: var(--text); }
+  .iuc-ov-num { font-family: var(--font-mono); font-size: clamp(56px,8vh,90px); font-weight: 700; color: var(--magenta); opacity: 0.08; position: absolute; right: clamp(28px,4vw,56px); top: clamp(12px,2vh,24px); line-height: 1; pointer-events: none; }
+  .iuc-ov-split { display: flex; flex: 1; min-height: 0; gap: clamp(24px,3vw,48px); }
+  .iuc-ov-left { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: clamp(12px,1.8vh,22px); overflow-y: auto; padding-right: 8px; }
+  .iuc-ov-right { flex: 0 0 clamp(240px,38%,480px); display: flex; align-items: center; justify-content: center; position: relative; }
+  .iuc-ov-right canvas { width: 100%; height: 100%; display: block; }
+
+  /* Animated title */
+  .iuc-ov-title {
+    font-family: var(--font-mono); font-size: clamp(22px,3.2vh,36px); font-weight: 700; color: var(--text);
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  }
+  .iuc-ov-title.anim { opacity: 1; transform: translateY(0); }
+
+  /* Animated desc */
+  .iuc-ov-desc {
+    font-size: clamp(14px,1.7vh,19px); color: var(--muted); line-height: 1.7; max-width: 580px;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.4s ease 0.15s, transform 0.4s cubic-bezier(0.22,1,0.36,1) 0.15s;
+  }
+  .iuc-ov-desc.anim { opacity: 1; transform: translateY(0); }
+
+  /* Staggered points */
+  .iuc-ov-points { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .iuc-ov-point {
+    font-size: clamp(13px,1.6vh,17px); color: var(--text); padding: 12px 18px;
+    border-left: 3px solid var(--magenta); background: rgba(230,0,126,0.04); border-radius: 0 6px 6px 0;
+    opacity: 0; transform: translateX(-18px);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.22,1,0.36,1);
+  }
+  .iuc-ov-point.show { opacity: 1; transform: translateX(0); }
+
+  /* Light mode overrides */
+  body.light .iuc-tile { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.1); }
+  body.light .iuc-tile:hover { border-color: rgba(230,0,126,0.4); box-shadow: 0 0 24px rgba(230,0,126,0.08); }
+  body.light .iuc-ov-inner { background: #f5f5f5; border-color: rgba(230,0,126,0.25); }
+  body.light .iuc-ov-point { background: rgba(230,0,126,0.05); }
+
   /* ── SLIDE 2: CashAI V1 ── */
   .s2-layout { display: flex; flex-direction: row; gap: clamp(20px,2.5vw,40px); flex: 1; min-height: 0; align-items: center; overflow: hidden; }
   .s2-left { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
@@ -466,7 +564,7 @@
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">Kyriba Product Vision</div>
-    <div class="slide-num">01 / 07</div>
+    <div class="slide-num">01 / 08</div>
   </div>
   <div class="slide-body" style="justify-content:center;gap:0;">
     <div class="title-eyebrow">Treasury Intelligence Series</div>
@@ -489,12 +587,74 @@
   </div>
 </div>
 
-<!-- ═══════════ SLIDE 2 · CashAI V1 ═══════════ -->
+
+<!-- ═══════════ SLIDE 2 · USE CASES ═══════════ -->
 <div class="slide" id="s2">
   <div class="grid-bg"></div>
   <div class="slide-header">
+    <div class="tag">AI Use Cases</div>
+    <div class="slide-num">02 / 08</div>
+  </div>
+  <div class="slide-body" style="justify-content:center;align-items:center;gap:clamp(16px,2.5vh,32px);">
+    <h2 style="text-align:center;">What Can <span class="accent">AI</span> Do for Forecasters?</h2>
+    <div class="iuc-grid">
+
+      <div class="iuc-tile" onclick="iucOpen(0)">
+        <div class="iuc-tile-head"><span class="iuc-tile-num">01</span></div>
+        <div class="iuc-tile-title">Generate &amp; Default</div>
+        <div class="iuc-tile-viz"><canvas id="iucViz0"></canvas></div>
+        <div class="iuc-tile-cta">EXPLORE &#x2197;</div>
+      </div>
+
+      <div class="iuc-tile" onclick="iucOpen(1)">
+        <div class="iuc-tile-head"><span class="iuc-tile-num">02</span></div>
+        <div class="iuc-tile-title">Expand the Horizon</div>
+        <div class="iuc-tile-viz"><canvas id="iucViz1"></canvas></div>
+        <div class="iuc-tile-cta">EXPLORE &#x2197;</div>
+      </div>
+
+      <div class="iuc-tile" onclick="iucOpen(2)">
+        <div class="iuc-tile-head"><span class="iuc-tile-num">03</span></div>
+        <div class="iuc-tile-title">Benchmark</div>
+        <div class="iuc-tile-viz"><canvas id="iucViz2"></canvas></div>
+        <div class="iuc-tile-cta">EXPLORE &#x2197;</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Zoom overlay -->
+  <div class="iuc-overlay" id="iucOverlay">
+    <div class="iuc-ov-inner" id="iucInner">
+      <button class="iuc-ov-close" onclick="iucClose()">&#10005;</button>
+      <div class="iuc-ov-content" id="iucContent">
+        <div class="iuc-ov-num" id="iucNum"></div>
+        <div class="iuc-ov-split">
+          <div class="iuc-ov-left">
+            <div class="iuc-ov-title" id="iucTitle"></div>
+            <div class="iuc-ov-desc" id="iucDesc"></div>
+            <div class="iuc-ov-points" id="iucPoints"></div>
+          </div>
+          <div class="iuc-ov-right">
+            <canvas id="iucOvCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer">
+    <div class="footer-logo"><span>K</span>YRIBA</div>
+    <div style="font-family:var(--font-mono);font-size:12px;color:var(--muted);">Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 2 · CashAI V1 ═══════════ -->
+<div class="slide" id="s3">
+  <div class="grid-bg"></div>
+  <div class="slide-header">
     <div class="tag">CashAI V1 · What We Built</div>
-    <div class="slide-num">02 / 07</div>
+    <div class="slide-num">03 / 08</div>
   </div>
   <div class="s2-layout" style="padding:8px 52px 0;">
     <div class="s2-left">
@@ -528,11 +688,11 @@
 </div>
 
 <!-- ═══════════ SLIDE 3 · LIMITATIONS ═══════════ -->
-<div class="slide" id="s3">
+<div class="slide" id="s4">
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">CashAI V1 · Ceiling</div>
-    <div class="slide-num">03 / 07</div>
+    <div class="slide-num">04 / 08</div>
   </div>
   <div class="slide-body" style="flex-direction:column;justify-content:flex-start;">
     <h2>But <span class="accent">Prophet Has a Ceiling</span><br>What V1 Cannot Do</h2>
@@ -586,11 +746,11 @@
 </div>
 
 <!-- ═══════════ SLIDE 4 · TAI ═══════════ -->
-<div class="slide" id="s4">
+<div class="slide" id="s5">
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">TAI · Trusted AI Architecture</div>
-    <div class="slide-num">04 / 07</div>
+    <div class="slide-num">05 / 08</div>
   </div>
   <div class="slide-body">
     <h2>The New Layer: <span class="accent">TAI</span><br>From Prompt to Executable Code</h2>
@@ -641,7 +801,7 @@
     </div>
   </div>
   <div style="display:flex;justify-content:center;margin-bottom:8px;">
-    <button class="s4-video-btn" onclick="s4OpenVideo()">
+    <button class="s4-video-btn" onclick="s5OpenVideo()">
       <span>▶</span><span>Watch the Prototype in Action</span>
     </button>
   </div>
@@ -652,17 +812,17 @@
 </div>
 
 <!-- Video modal -->
-<div id="s4VideoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;">
+<div id="s5VideoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;">
   <div style="position:relative;width:min(900px,92vw);background:#0d1017;border:1px solid rgba(230,255,0,0.25);border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.07);">
       <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;color:rgba(230,255,0,0.8);">// TAI &#183; Demo Recording</span>
       <div style="display:flex;align-items:center;gap:12px;">
         <a href="https://drive.google.com/file/d/1HcoM2lYlNK_Bgd48jLKRmWKTh_hMjwDB/view" target="_blank" rel="noopener" class="alp-link" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;padding:3px 10px;border:1px solid rgba(230,255,0,0.3);border-radius:3px;">OPEN IN DRIVE &#8599;</a>
-        <button onclick="s4CloseVideo()" style="background:none;border:none;color:rgba(200,210,230,0.6);font-size:20px;cursor:pointer;padding:0 4px;">&#x2715;</button>
+        <button onclick="s5CloseVideo()" style="background:none;border:none;color:rgba(200,210,230,0.6);font-size:20px;cursor:pointer;padding:0 4px;">&#x2715;</button>
       </div>
     </div>
     <div style="position:relative;padding-bottom:56.25%;height:0;background:#080a0e;">
-      <div id="s4PlayScreen" onclick="s4PlayVideo()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:2;cursor:pointer;background:linear-gradient(135deg,#0d1018,#141820);">
+      <div id="s5PlayScreen" onclick="s5PlayVideo()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:2;cursor:pointer;background:linear-gradient(135deg,#0d1018,#141820);">
         <div style="width:80px;height:80px;border-radius:50%;background:rgba(230,255,0,0.1);border:2px solid rgba(230,255,0,0.6);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(230,255,0,0.2);">
           <svg width="30" height="30" viewBox="0 0 30 30"><polygon points="11,6 26,15 11,24" fill="#E6FF00"/></svg>
         </div>
@@ -671,17 +831,17 @@
           <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:rgba(232,234,240,0.3);">or use OPEN IN DRIVE above</div>
         </div>
       </div>
-      <iframe id="s4VideoFrame" src="" allow="autoplay;fullscreen;encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none;z-index:1;"></iframe>
+      <iframe id="s5VideoFrame" src="" allow="autoplay;fullscreen;encrypted-media" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:none;z-index:1;"></iframe>
     </div>
   </div>
 </div>
 
 <!-- ═══════════ SLIDE 6 · USE CASES ═══════════ -->
-<div class="slide" id="s5">
+<div class="slide" id="s6">
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">TAI in Action · Use Cases</div>
-    <div class="slide-num">05 / 07</div>
+    <div class="slide-num">06 / 08</div>
   </div>
   <div class="slide-body" style="position:relative;">
     <h2>What <span class="accent">TAI Unlocks</span><br>Use Cases Impossible with V1</h2>
@@ -729,11 +889,11 @@
 </div>
 
 <!-- ═══════════ SLIDE 7 · DEMO VIDEO ═══════════ -->
-<div class="slide" id="s6">
+<div class="slide" id="s7">
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">TAI · Prototype Recording</div>
-    <div class="slide-num">06 / 07</div>
+    <div class="slide-num">07 / 08</div>
   </div>
   <div class="slide-body" style="align-items:center;justify-content:center;gap:clamp(20px,3vh,40px);">
     <div style="text-align:center;">
@@ -779,11 +939,11 @@
 
 
 <!-- ═══════════ SLIDE 5 · ALP ═══════════ -->
-<div class="slide" id="s7">
+<div class="slide" id="s8">
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">Liquidity Planning · The Ultimate Forecast Toolbox</div>
-    <div class="slide-num">07 / 07</div>
+    <div class="slide-num">08 / 08</div>
   </div>
   <div class="slide-body">
     <h2 id="alpTitle">Introducing <span id="alpAdvanced" class="accent alp-advanced-glow" style="opacity:0;display:inline-block;"></span><span id="alpAccent" class="accent"> Liquidity Planning</span></h2>
@@ -883,7 +1043,7 @@
 <div class="nav">
   <button class="nav-btn" id="prev">←</button>
   <div id="dots"></div>
-  <span class="slide-counter" id="counter">1 / 7</span>
+  <span class="slide-counter" id="counter">1 / 8</span>
   <button class="nav-btn" id="next">→</button>
   <button id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀</button>
 </div>
@@ -993,8 +1153,8 @@
       }
       let animStarted=false;
       function startAnim(){start=null;progress=0;phase='draw';if(!animStarted){animStarted=true;requestAnimationFrame(animate);}}
-      window.addEventListener('slideChange',e=>{if(e.detail===1)startAnim();});
-      if(document.getElementById('s2').classList.contains('active'))startAnim();
+      window.addEventListener('slideChange',e=>{if(e.detail===2)startAnim();});
+      if(document.getElementById('s3').classList.contains('active'))startAnim();
       draw(0);
     }
     if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initChart);
@@ -1092,21 +1252,21 @@
   }
 
   document.addEventListener('keydown', e => { if (e.key === 'Escape') limClose(); });
-  window.addEventListener('slideChange', e => { if (e.detail !== 2) limClose(); });
+  window.addEventListener('slideChange', e => { if (e.detail !== 3) limClose(); });
 
   // ── Video modal ──
-  function s4OpenVideo() { document.getElementById('s4VideoModal').style.display='flex'; }
-  function s4PlayVideo() {
-    document.getElementById('s4PlayScreen').style.display='none';
-    const f=document.getElementById('s4VideoFrame');
+  function s5OpenVideo() { document.getElementById('s5VideoModal').style.display='flex'; }
+  function s5PlayVideo() {
+    document.getElementById('s5PlayScreen').style.display='none';
+    const f=document.getElementById('s5VideoFrame');
     f.style.display='block';
     f.src='https://drive.google.com/file/d/1HcoM2lYlNK_Bgd48jLKRmWKTh_hMjwDB/preview';
   }
-  function s4CloseVideo() {
-    document.getElementById('s4VideoModal').style.display='none';
-    const f=document.getElementById('s4VideoFrame');
+  function s5CloseVideo() {
+    document.getElementById('s5VideoModal').style.display='none';
+    const f=document.getElementById('s5VideoFrame');
     f.src=''; f.style.display='none';
-    document.getElementById('s4PlayScreen').style.display='flex';
+    document.getElementById('s5PlayScreen').style.display='flex';
   }
 
   // ── Slide 4: bold word highlight loop ──
@@ -1123,7 +1283,7 @@
     }
     function startLoop(){ stopLoop(); seq=0; loopTimer=setTimeout(pulsNext,800); }
     function stopLoop(){ clearTimeout(loopTimer); targets.forEach(id=>{ const el=document.getElementById(id); if(el){el.classList.remove('pulse');el.style.transform='';} }); }
-    window.addEventListener('slideChange',e=>{ if(e.detail===3) startLoop(); else stopLoop(); });
+    window.addEventListener('slideChange',e=>{ if(e.detail===4) startLoop(); else stopLoop(); });
   })();
 
   // ── Slide 7: ALP border travels to title ──
@@ -1217,7 +1377,7 @@
       if(r){r.setAttribute('stroke','rgba(230,255,0,0)');r.setAttribute('stroke-dasharray','0 9999');r.setAttribute('width',0);r.setAttribute('height',0);}
     }
     window.addEventListener('slideChange',e=>{
-      if(e.detail===6){done=false;looping=false;alpTimer=setTimeout(startAlp,400);}
+      if(e.detail===7){done=false;looping=false;alpTimer=setTimeout(startAlp,400);}
       else stopAlp();
     });
   })();
@@ -1331,7 +1491,7 @@
       if (e.target === document.getElementById('ucOverlay')) ucClose();
     };
 
-    window.addEventListener('slideChange', e => { if (e.detail !== 4) ucClose(); });
+    window.addEventListener('slideChange', e => { if (e.detail !== 5) ucClose(); });
 
     // ── Chart 1: Distribution Curve - animated bar chart ──
     function drawDistributionChart() {
@@ -1588,7 +1748,7 @@
     }
 
     window.addEventListener('slideChange', e => {
-      if (e.detail === 6) setTimeout(initFBar, 400);
+      if (e.detail === 7) setTimeout(initFBar, 400);
     });
   })();
 
@@ -1635,6 +1795,752 @@
     }
   } catch(e){}
 
+
+  // ── Slide 2: Mini-chart animations on tiles ──
+  (function() {
+    let iucAnimId = null;
+    const dpr = window.devicePixelRatio || 1;
+
+    function sizeCanvas(c) {
+      const r = c.parentElement.getBoundingClientRect();
+      c.width = r.width * dpr;
+      c.height = r.height * dpr;
+      c.style.width = r.width + 'px';
+      c.style.height = r.height + 'px';
+      const ctx = c.getContext('2d');
+      ctx.scale(dpr, dpr);
+      return { ctx, w: r.width, h: r.height };
+    }
+
+    // ── Tile 0: Generate & Default — bars growing up with a "flash" baseline
+    function drawTile0(progress) {
+      const c = document.getElementById('iucViz0');
+      if (!c) return;
+      const { ctx, w, h } = sizeCanvas(c);
+      ctx.clearRect(0, 0, w, h);
+      const barW = w * 0.08;
+      const gap = w * 0.04;
+      const totalBars = 7;
+      const totalW = totalBars * barW + (totalBars - 1) * gap;
+      const startX = (w - totalW) / 2;
+      const baseY = h * 0.88;
+      const maxH = h * 0.7;
+      const heights = [0.45, 0.7, 0.55, 0.85, 0.6, 0.75, 0.5];
+
+      // Baseline (default) — dashed horizontal
+      const baselineH = 0.5 * maxH;
+      const blinkAlpha = 0.2 + 0.15 * Math.sin(progress * Math.PI * 4);
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = 'rgba(230,255,0,' + blinkAlpha.toFixed(2) + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(startX - 10, baseY - baselineH);
+      ctx.lineTo(startX + totalW + 10, baseY - baselineH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Bars
+      const easeP = Math.min(progress * 1.5, 1);
+      const ease = 1 - Math.pow(1 - easeP, 3);
+      heights.forEach((frac, i) => {
+        const bh = frac * maxH * ease;
+        const x = startX + i * (barW + gap);
+        const isMagenta = i < 3;
+        ctx.fillStyle = isMagenta ? 'rgba(230,0,126,0.6)' : 'rgba(230,255,0,0.55)';
+        ctx.beginPath();
+        ctx.rect(x, baseY - bh, barW, bh);
+        ctx.fill();
+      });
+
+      // Labels
+      ctx.font = '600 ' + Math.max(9, w * 0.033) + 'px "Space Mono", monospace';
+      ctx.fillStyle = 'rgba(230,0,126,0.5)';
+      ctx.textAlign = 'center';
+      ctx.fillText('AI', startX + 1 * (barW + gap) + barW / 2, baseY + 13);
+      ctx.fillStyle = 'rgba(230,255,0,0.5)';
+      ctx.fillText('Default', startX + 5 * (barW + gap) + barW / 2, baseY + 13);
+    }
+
+    // ── Tile 1: Expand Horizon — line that extends rightward with dashes
+    function drawTile1(progress) {
+      const c = document.getElementById('iucViz1');
+      if (!c) return;
+      const { ctx, w, h } = sizeCanvas(c);
+      ctx.clearRect(0, 0, w, h);
+      const padL = w * 0.08, padR = w * 0.06;
+      const midY = h * 0.5;
+      const ampH = h * 0.22;
+      const solidEnd = 0.5; // 50% of width = confirmed data
+      const pts = 60;
+
+      // Solid line (confirmed)
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(230,0,126,0.8)';
+      ctx.lineWidth = 2.5;
+      for (let i = 0; i <= pts * solidEnd; i++) {
+        const t = i / pts;
+        const x = padL + t * (w - padL - padR);
+        const y = midY + Math.sin(t * Math.PI * 3.2) * ampH * 0.8 - t * ampH * 0.3;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Expansion (dashed, animated)
+      const expandProgress = Math.max(0, Math.min((progress - 0.25) / 0.6, 1));
+      const easeExpand = 1 - Math.pow(1 - expandProgress, 2);
+      const drawTo = solidEnd + (1 - solidEnd) * easeExpand;
+      if (expandProgress > 0) {
+        ctx.beginPath();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = 'rgba(230,255,0,0.7)';
+        ctx.lineWidth = 2.5;
+        const startI = Math.floor(pts * solidEnd);
+        for (let i = startI; i <= pts * drawTo; i++) {
+          const t = i / pts;
+          const x = padL + t * (w - padL - padR);
+          const y = midY + Math.sin(t * Math.PI * 3.2) * ampH * 0.8 - t * ampH * 0.3;
+          i === startI ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Confidence band
+        if (expandProgress > 0.1) {
+          const bandAlpha = Math.min(expandProgress * 0.3, 0.12);
+          ctx.fillStyle = 'rgba(230,255,0,' + bandAlpha.toFixed(3) + ')';
+          ctx.beginPath();
+          for (let i = startI; i <= pts * drawTo; i++) {
+            const t = i / pts;
+            const spread = (t - solidEnd) * ampH * 1.5;
+            const x = padL + t * (w - padL - padR);
+            const y = midY + Math.sin(t * Math.PI * 3.2) * ampH * 0.8 - t * ampH * 0.3 - spread;
+            i === startI ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          }
+          for (let i = Math.floor(pts * drawTo); i >= startI; i--) {
+            const t = i / pts;
+            const spread = (t - solidEnd) * ampH * 1.5;
+            const x = padL + t * (w - padL - padR);
+            const y = midY + Math.sin(t * Math.PI * 3.2) * ampH * 0.8 - t * ampH * 0.3 + spread;
+            ctx.lineTo(x, y);
+          }
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+
+      // Week markers
+      ctx.font = '600 ' + Math.max(9, w * 0.033) + 'px "Space Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(230,0,126,0.45)';
+      ctx.fillText('W1–7', padL + solidEnd * 0.5 * (w - padL - padR), h * 0.92);
+      if (expandProgress > 0.5) {
+        ctx.fillStyle = 'rgba(230,255,0,' + (Math.min((expandProgress - 0.5) * 2, 0.5)).toFixed(2) + ')';
+        ctx.fillText('W8–13', padL + (solidEnd + (1 - solidEnd) * 0.5) * (w - padL - padR), h * 0.92);
+      }
+
+      // Divider
+      const divX = padL + solidEnd * (w - padL - padR);
+      ctx.strokeStyle = 'rgba(232,234,240,0.15)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(divX, h * 0.08);
+      ctx.lineTo(divX, h * 0.85);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // ── Tile 2: Benchmark — two overlapping area curves
+    function drawTile2(progress) {
+      const c = document.getElementById('iucViz2');
+      if (!c) return;
+      const { ctx, w, h } = sizeCanvas(c);
+      ctx.clearRect(0, 0, w, h);
+      const padL = w * 0.06, padR = w * 0.06;
+      const baseY = h * 0.82;
+      const maxH = h * 0.6;
+      const pts = 50;
+
+      const entityEase = Math.min(progress * 2, 1);
+      const aiEase = Math.max(0, Math.min((progress - 0.2) * 1.5, 1));
+
+      // Entity forecast (magenta area)
+      if (entityEase > 0) {
+        const entityPts = [];
+        for (let i = 0; i <= pts * entityEase; i++) {
+          const t = i / pts;
+          const x = padL + t * (w - padL - padR);
+          const y = baseY - (0.4 + 0.25 * Math.sin(t * Math.PI * 2.8) + 0.15 * Math.cos(t * Math.PI * 1.3)) * maxH;
+          entityPts.push({ x, y });
+        }
+        // Area
+        ctx.beginPath();
+        entityPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+        ctx.lineTo(entityPts[entityPts.length - 1].x, baseY);
+        ctx.lineTo(entityPts[0].x, baseY);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(230,0,126,0.1)';
+        ctx.fill();
+        // Line
+        ctx.beginPath();
+        entityPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+        ctx.strokeStyle = 'rgba(230,0,126,0.7)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      // AI forecast (yellow area)
+      if (aiEase > 0) {
+        const aiPts = [];
+        const totalI = Math.floor(pts * aiEase);
+        for (let i = 0; i <= totalI; i++) {
+          const t = i / pts;
+          const x = padL + t * (w - padL - padR);
+          const y = baseY - (0.5 + 0.2 * Math.sin(t * Math.PI * 2.8 + 0.3) + 0.1 * Math.cos(t * Math.PI * 1.8)) * maxH;
+          aiPts.push({ x, y });
+        }
+        ctx.beginPath();
+        aiPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+        ctx.lineTo(aiPts[aiPts.length - 1].x, baseY);
+        ctx.lineTo(aiPts[0].x, baseY);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(230,255,0,0.06)';
+        ctx.fill();
+        ctx.beginPath();
+        aiPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
+        ctx.strokeStyle = 'rgba(230,255,0,0.7)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 3]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Legend
+      const legY = h * 0.95;
+      ctx.font = '600 ' + Math.max(9, w * 0.033) + 'px "Space Mono", monospace';
+      ctx.fillStyle = 'rgba(230,0,126,0.5)';
+      ctx.textAlign = 'left';
+      ctx.fillText('━ Entity', padL, legY);
+      ctx.fillStyle = 'rgba(230,255,0,0.5)';
+      ctx.fillText('╌ AI', w * 0.5, legY);
+    }
+
+    let animStart = null;
+    const duration = 2800;
+
+    function animateTiles(ts) {
+      if (!animStart) animStart = ts;
+      const elapsed = ts - animStart;
+      const p = Math.min(elapsed / duration, 1);
+
+      drawTile0(p);
+      drawTile1(p);
+      drawTile2(p);
+
+      if (p < 1) {
+        iucAnimId = requestAnimationFrame(animateTiles);
+      }
+    }
+
+    function startTileAnims() {
+      if (iucAnimId) cancelAnimationFrame(iucAnimId);
+      animStart = null;
+      iucAnimId = requestAnimationFrame(animateTiles);
+    }
+
+    window.addEventListener('slideChange', e => {
+      if (e.detail === 1) setTimeout(startTileAnims, 250);
+      else if (iucAnimId) { cancelAnimationFrame(iucAnimId); iucAnimId = null; }
+    });
+    // Also start if slide 2 is somehow active at load
+    if (document.getElementById('s2') && document.getElementById('s2').classList.contains('active')) startTileAnims();
+  })();
+
+  // ── Slide 2: Use-case tile zoom ──
+  (function() {
+    const iucData = [
+      {
+        num: '01', title: 'Generate & Default a Forecast',
+        desc: 'AI generates forecasts from scratch or produces a sensible baseline that entities can refine — eliminating the blank-sheet problem and accelerating the forecasting cycle.',
+        points: [
+          'AI performs generation when prerequisites (actuals, confirmed flows) are verified',
+          'Produces a default forecast for entities to adjust instead of starting from zero',
+          'Supports batch generation across all cash flow lines simultaneously'
+        ]
+      },
+      {
+        num: '02', title: 'Expand the Forecast Horizon',
+        desc: 'Extend the forecast received from entities beyond its original time boundary. Prophet and CatBoost models extrapolate forward using the confirmed data as a springboard.',
+        points: [
+          'Expand horizon from entity-submitted range (e.g. 7 weeks → 13 weeks)',
+          'Uses Prophet changepoint detection for trend continuation',
+          'Preserves seasonality patterns from the original forecast',
+          'Confidence bands widen proportionally with distance from confirmed data'
+        ]
+      },
+      {
+        num: '03', title: 'Benchmark the Existing Forecast',
+        desc: 'Compare the forecast submitted by entities against the AI-generated forecast to identify blind spots, systematic bias, and forecast quality issues.',
+        points: [
+          'Side-by-side comparison: entity forecast vs. AI forecast',
+          'Surfaces variance by category, entity, and time bucket',
+          'Flags systematic over- or under-forecasting patterns',
+          'Provides a confidence-weighted accuracy score per line'
+        ]
+      }
+    ];
+
+    let iucIdx = -1;
+
+    window.iucOpen = function(idx) {
+      const tiles = document.querySelectorAll('.iuc-tile');
+      const overlay = document.getElementById('iucOverlay');
+      const inner = document.getElementById('iucInner');
+      const content = document.getElementById('iucContent');
+      if (!overlay || !inner) return;
+      iucIdx = idx;
+
+      tiles.forEach((c,i) => c.classList.toggle('iuc-dimmed', i !== idx));
+
+      // Snap to tile rect
+      const r = tiles[idx].getBoundingClientRect();
+      inner.style.transition = 'none';
+      inner.style.top = r.top + 'px';
+      inner.style.left = r.left + 'px';
+      inner.style.width = r.width + 'px';
+      inner.style.height = r.height + 'px';
+      inner.style.borderRadius = '12px';
+      content.classList.remove('visible');
+      overlay.classList.add('active');
+      inner.getBoundingClientRect(); // force reflow
+
+      // Expand
+      const pad = 48;
+      inner.style.transition = '';
+      inner.style.top = pad + 'px';
+      inner.style.left = pad + 'px';
+      inner.style.width = (window.innerWidth - pad*2) + 'px';
+      inner.style.height = (window.innerHeight - pad*2) + 'px';
+      inner.style.borderRadius = '14px';
+
+      setTimeout(() => {
+        content.classList.add('visible');
+        populateIuc(idx);
+      }, 340);
+    };
+
+    let ovAnimId = null;
+
+    function populateIuc(idx) {
+      const d = iucData[idx];
+      const titleEl = document.getElementById('iucTitle');
+      const descEl = document.getElementById('iucDesc');
+      const numEl = document.getElementById('iucNum');
+      numEl.textContent = d.num;
+
+      // Reset animations
+      titleEl.classList.remove('anim');
+      descEl.classList.remove('anim');
+      titleEl.textContent = d.title;
+      descEl.textContent = d.desc;
+
+      // Trigger title + desc slide-in
+      requestAnimationFrame(() => {
+        titleEl.classList.add('anim');
+        descEl.classList.add('anim');
+      });
+
+      // Stagger points
+      const pEl = document.getElementById('iucPoints');
+      pEl.innerHTML = d.points.map(p => '<div class="iuc-ov-point">' + p + '</div>').join('');
+      pEl.querySelectorAll('.iuc-ov-point').forEach((el, i) => {
+        setTimeout(() => el.classList.add('show'), 200 + i * 140);
+      });
+
+      // Start canvas animation
+      if (ovAnimId) { cancelAnimationFrame(ovAnimId); ovAnimId = null; }
+      setTimeout(() => startOvChart(idx), 100);
+    }
+
+    function startOvChart(idx) {
+      const canvas = document.getElementById('iucOvCanvas');
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const container = canvas.parentElement;
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+      const w = rect.width, h = rect.height;
+      const start = performance.now();
+      const duration = 2400;
+
+      const drawFns = [drawOvGenerate, drawOvExpand, drawOvBenchmark];
+
+      function frame(ts) {
+        const p = Math.min((ts - start) / duration, 1);
+        ctx.clearRect(0, 0, w, h);
+        drawFns[idx](ctx, w, h, p);
+        if (p < 1) ovAnimId = requestAnimationFrame(frame);
+      }
+      ovAnimId = requestAnimationFrame(frame);
+    }
+
+    // ── Overlay chart: Generate & Default ──
+    // Flat "empty" bars morph into AI-generated + default baseline
+    function drawOvGenerate(ctx, w, h, p) {
+      const padL = w * 0.08, padR = w * 0.08, padB = h * 0.14, padT = h * 0.06;
+      const baseY = h - padB;
+      const maxH = h - padT - padB;
+      const barData = [
+        { label: 'Payroll', empty: 0.15, ai: 0.72, def: 0.55 },
+        { label: 'Tax', empty: 0.12, ai: 0.58, def: 0.48 },
+        { label: 'Revenue', empty: 0.10, ai: 0.88, def: 0.65 },
+        { label: 'Rent', empty: 0.18, ai: 0.45, def: 0.40 },
+        { label: 'FX', empty: 0.08, ai: 0.68, def: 0.52 },
+        { label: 'Other', empty: 0.14, ai: 0.55, def: 0.42 }
+      ];
+      const n = barData.length;
+      const groupW = (w - padL - padR) / n;
+      const barW = groupW * 0.3;
+      const gap = groupW * 0.08;
+
+      // Phase 1 (0-0.3): empty bars appear
+      // Phase 2 (0.3-0.7): AI bars grow
+      // Phase 3 (0.5-0.9): default baseline fades in
+
+      barData.forEach((d, i) => {
+        const gx = padL + i * groupW + groupW * 0.15;
+
+        // Empty bar (ghost)
+        const ep = Math.min(p / 0.3, 1);
+        const easeE = 1 - Math.pow(1 - Math.min(ep, 1), 3);
+        const eH = d.empty * maxH * easeE;
+        ctx.fillStyle = 'rgba(232,234,240,0.08)';
+        ctx.fillRect(gx, baseY - eH, barW, eH);
+
+        // AI bar
+        const ap = Math.max(0, Math.min((p - 0.2 - i * 0.04) / 0.4, 1));
+        const easeA = ap < 0 ? 0 : 1 - Math.pow(1 - ap, 3);
+        const aH = d.ai * maxH * easeA;
+        ctx.fillStyle = 'rgba(230,0,126,0.65)';
+        ctx.fillRect(gx + barW + gap, baseY - aH, barW, aH);
+
+        // Default bar
+        const dp = Math.max(0, Math.min((p - 0.45 - i * 0.03) / 0.35, 1));
+        const easeD = dp < 0 ? 0 : 1 - Math.pow(1 - dp, 3);
+        const dH = d.def * maxH * easeD;
+        ctx.fillStyle = 'rgba(230,255,0,0.45)';
+        ctx.fillRect(gx + 2 * (barW + gap), baseY - dH, barW, dH);
+
+        // Labels
+        ctx.font = '600 ' + Math.max(9, w * 0.025) + 'px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(232,234,240,0.35)';
+        ctx.fillText(d.label, gx + 1.5 * barW + gap, baseY + 16);
+      });
+
+      // Legend
+      const legY = h * 0.04 + 12;
+      ctx.font = '600 ' + Math.max(10, w * 0.028) + 'px "Space Mono", monospace';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(230,0,126,0.7)';
+      ctx.fillRect(padL, legY - 5, 12, 3);
+      ctx.fillText('AI Generated', padL + 18, legY);
+      ctx.fillStyle = 'rgba(230,255,0,0.6)';
+      ctx.fillRect(padL + w * 0.35, legY - 5, 12, 3);
+      ctx.fillText('Default', padL + w * 0.35 + 18, legY);
+
+      // Axis line
+      ctx.strokeStyle = 'rgba(232,234,240,0.1)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(padL, baseY);
+      ctx.lineTo(w - padR, baseY);
+      ctx.stroke();
+    }
+
+    // ── Overlay chart: Expand Horizon ──
+    // Line chart that draws solid then extends dashed with widening confidence band
+    function drawOvExpand(ctx, w, h, p) {
+      const padL = w * 0.06, padR = w * 0.06, padT = h * 0.1, padB = h * 0.12;
+      const chartW = w - padL - padR;
+      const chartH = h - padT - padB;
+      const midY = padT + chartH * 0.45;
+      const amp = chartH * 0.28;
+      const pts = 80;
+      const splitAt = 0.5; // 50% = confirmed boundary
+
+      function yAt(t) {
+        return midY + Math.sin(t * Math.PI * 3.5) * amp - t * amp * 0.25 + Math.sin(t * 7) * amp * 0.1;
+      }
+
+      // Grid lines
+      ctx.strokeStyle = 'rgba(232,234,240,0.06)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 5; i++) {
+        const gy = padT + i * chartH / 4;
+        ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(w - padR, gy); ctx.stroke();
+      }
+
+      // Confirmed data (solid magenta line that draws)
+      const solidP = Math.min(p / 0.45, 1);
+      const solidEase = 1 - Math.pow(1 - solidP, 2);
+      const solidEnd = Math.floor(pts * splitAt * solidEase);
+      if (solidEnd > 0) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(230,0,126,0.85)';
+        ctx.lineWidth = 3;
+        for (let i = 0; i <= solidEnd; i++) {
+          const t = i / pts;
+          const x = padL + t * chartW;
+          const y = yAt(t);
+          i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Fill under solid
+        ctx.beginPath();
+        for (let i = 0; i <= solidEnd; i++) {
+          const t = i / pts; const x = padL + t * chartW;
+          i === 0 ? ctx.moveTo(x, yAt(t)) : ctx.lineTo(x, yAt(t));
+        }
+        const lastSolidX = padL + (solidEnd / pts) * chartW;
+        ctx.lineTo(lastSolidX, padT + chartH);
+        ctx.lineTo(padL, padT + chartH);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(230,0,126,0.06)';
+        ctx.fill();
+      }
+
+      // Divider line at split point
+      const divX = padL + splitAt * chartW;
+      if (p > 0.35) {
+        const divAlpha = Math.min((p - 0.35) * 3, 0.3);
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = 'rgba(232,234,240,' + divAlpha.toFixed(2) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(divX, padT); ctx.lineTo(divX, padT + chartH); ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Labels
+        ctx.font = '700 ' + Math.max(10, w * 0.026) + 'px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(230,0,126,' + divAlpha.toFixed(2) + ')';
+        ctx.fillText('W1 – W7', padL + splitAt * 0.5 * chartW, padT + chartH + 18);
+      }
+
+      // Expansion (dashed yellow)
+      const expandP = Math.max(0, Math.min((p - 0.4) / 0.45, 1));
+      if (expandP > 0) {
+        const expandEase = 1 - Math.pow(1 - expandP, 2);
+        const drawTo = splitAt + (1 - splitAt) * expandEase;
+        const startI = Math.floor(pts * splitAt);
+        const endI = Math.floor(pts * drawTo);
+
+        // Confidence band
+        const bandAlpha = Math.min(expandP * 0.18, 0.12);
+        ctx.beginPath();
+        for (let i = startI; i <= endI; i++) {
+          const t = i / pts;
+          const spread = (t - splitAt) * amp * 2;
+          const x = padL + t * chartW;
+          ctx.lineTo(x, yAt(t) - spread);
+        }
+        for (let i = endI; i >= startI; i--) {
+          const t = i / pts;
+          const spread = (t - splitAt) * amp * 2;
+          const x = padL + t * chartW;
+          ctx.lineTo(x, yAt(t) + spread);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(230,255,0,' + bandAlpha.toFixed(3) + ')';
+        ctx.fill();
+
+        // Dashed line
+        ctx.beginPath();
+        ctx.setLineDash([8, 5]);
+        ctx.strokeStyle = 'rgba(230,255,0,0.8)';
+        ctx.lineWidth = 3;
+        for (let i = startI; i <= endI; i++) {
+          const t = i / pts;
+          const x = padL + t * chartW;
+          i === startI ? ctx.moveTo(x, yAt(t)) : ctx.lineTo(x, yAt(t));
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Week label right
+        if (expandP > 0.4) {
+          const labelAlpha = Math.min((expandP - 0.4) * 2, 0.5);
+          ctx.font = '700 ' + Math.max(10, w * 0.026) + 'px "Space Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = 'rgba(230,255,0,' + labelAlpha.toFixed(2) + ')';
+          ctx.fillText('W8 – W13', divX + (1 - splitAt) * 0.5 * chartW, padT + chartH + 18);
+        }
+
+        // Pulsing dot at expansion tip
+        const tipX = padL + drawTo * chartW;
+        const tipY = yAt(drawTo);
+        const pulse = 0.6 + 0.4 * Math.sin(p * Math.PI * 6);
+        ctx.beginPath();
+        ctx.arc(tipX, tipY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(230,255,0,' + (pulse * 0.9).toFixed(2) + ')';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(tipX, tipY, 10 * pulse, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(230,255,0,' + (pulse * 0.3).toFixed(2) + ')';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+    }
+
+    // ── Overlay chart: Benchmark ──
+    // Two line charts drawing, then variance shading appears between them
+    function drawOvBenchmark(ctx, w, h, p) {
+      const padL = w * 0.06, padR = w * 0.06, padT = h * 0.1, padB = h * 0.12;
+      const chartW = w - padL - padR;
+      const chartH = h - padT - padB;
+      const baseY = padT + chartH * 0.5;
+      const amp = chartH * 0.3;
+      const pts = 60;
+
+      function entityY(t) {
+        return baseY + Math.sin(t * Math.PI * 3) * amp * 0.7 - t * amp * 0.15 + Math.cos(t * 5.5) * amp * 0.15;
+      }
+      function aiY(t) {
+        return baseY + Math.sin(t * Math.PI * 3 + 0.35) * amp * 0.6 - t * amp * 0.3 + Math.cos(t * 4.2) * amp * 0.1;
+      }
+
+      // Grid
+      ctx.strokeStyle = 'rgba(232,234,240,0.06)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 5; i++) {
+        const gy = padT + i * chartH / 4;
+        ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(w - padR, gy); ctx.stroke();
+      }
+
+      // Entity line (draws first)
+      const eP = Math.min(p / 0.5, 1);
+      const eEnd = Math.floor(pts * eP);
+      if (eEnd > 0) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(230,0,126,0.8)';
+        ctx.lineWidth = 2.5;
+        for (let i = 0; i <= eEnd; i++) {
+          const t = i / pts;
+          const x = padL + t * chartW;
+          i === 0 ? ctx.moveTo(x, entityY(t)) : ctx.lineTo(x, entityY(t));
+        }
+        ctx.stroke();
+      }
+
+      // AI line (draws slightly delayed)
+      const aP = Math.max(0, Math.min((p - 0.15) / 0.5, 1));
+      const aEnd = Math.floor(pts * aP);
+      if (aEnd > 0) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(230,255,0,0.8)';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([6, 4]);
+        for (let i = 0; i <= aEnd; i++) {
+          const t = i / pts;
+          const x = padL + t * chartW;
+          i === 0 ? ctx.moveTo(x, aiY(t)) : ctx.lineTo(x, aiY(t));
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Variance shading (appears after both lines drawn)
+      const vP = Math.max(0, Math.min((p - 0.55) / 0.35, 1));
+      if (vP > 0) {
+        const vEnd = Math.floor(pts * vP);
+        // Highlight regions of biggest variance
+        ctx.beginPath();
+        for (let i = 0; i <= vEnd; i++) {
+          const t = i / pts;
+          const x = padL + t * chartW;
+          ctx.lineTo(x, entityY(t));
+        }
+        for (let i = vEnd; i >= 0; i--) {
+          const t = i / pts;
+          const x = padL + t * chartW;
+          ctx.lineTo(x, aiY(t));
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(230,255,0,0.06)';
+        ctx.fill();
+
+        // Variance markers at key divergence points
+        const markers = [0.22, 0.52, 0.78];
+        markers.forEach(mt => {
+          if (mt > vEnd / pts) return;
+          const mx = padL + mt * chartW;
+          const ey = entityY(mt), ay = aiY(mt);
+          const markerP = Math.min((vP - mt) * 3, 1);
+          if (markerP <= 0) return;
+
+          // Vertical line between points
+          ctx.strokeStyle = 'rgba(230,255,0,' + (markerP * 0.5).toFixed(2) + ')';
+          ctx.lineWidth = 1;
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath(); ctx.moveTo(mx, ey); ctx.lineTo(mx, ay); ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Variance % label
+          const variance = Math.abs(((ey - ay) / (chartH * 0.5)) * 100).toFixed(0);
+          const midLabelY = (ey + ay) / 2;
+          ctx.font = '700 ' + Math.max(10, w * 0.024) + 'px "Space Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = 'rgba(230,255,0,' + (markerP * 0.7).toFixed(2) + ')';
+          ctx.fillText((ey > ay ? '+' : '-') + variance + '%', mx, midLabelY - 6);
+        });
+      }
+
+      // Legend
+      const legY = padT - 4;
+      ctx.font = '600 ' + Math.max(10, w * 0.026) + 'px "Space Mono", monospace';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(230,0,126,0.7)';
+      ctx.fillText('━ Entity', padL, legY);
+      ctx.fillStyle = 'rgba(230,255,0,0.7)';
+      ctx.fillText('╌ AI Forecast', padL + w * 0.3, legY);
+    }
+
+    window.iucClose = function() {
+      const tiles = document.querySelectorAll('.iuc-tile');
+      const overlay = document.getElementById('iucOverlay');
+      const inner = document.getElementById('iucInner');
+      const content = document.getElementById('iucContent');
+      if (iucIdx < 0) return;
+      if (ovAnimId) { cancelAnimationFrame(ovAnimId); ovAnimId = null; }
+
+      content.classList.remove('visible');
+      document.getElementById('iucTitle').classList.remove('anim');
+      document.getElementById('iucDesc').classList.remove('anim');
+      const r = tiles[iucIdx].getBoundingClientRect();
+      inner.style.top = r.top + 'px';
+      inner.style.left = r.left + 'px';
+      inner.style.width = r.width + 'px';
+      inner.style.height = r.height + 'px';
+      inner.style.borderRadius = '12px';
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        tiles.forEach(c => c.classList.remove('iuc-dimmed'));
+        iucIdx = -1;
+      }, 480);
+    };
+
+    // Close on slide change
+    window.addEventListener('slideChange', e => { if (e.detail !== 1) iucClose(); });
+
+    // Close on Escape
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && iucIdx >= 0) iucClose(); });
+  })();
 </script>
 <svg id="alpSvg" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:50;overflow:visible;display:none;">
   <rect id="alpRect" x="0" y="0" width="10" height="10" rx="12" fill="none" stroke="rgba(230,255,0,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0 9999"/>
