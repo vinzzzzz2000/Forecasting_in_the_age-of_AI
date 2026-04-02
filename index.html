@@ -1159,6 +1159,19 @@
         <div style="display:flex;align-items:center;padding:0 2px;">
           <span style="font-family:var(--font-mono);font-size:18px;color:var(--border);">⌇</span>
         </div>
+        <div class="studio-card" id="scInv" style="border-color:rgba(0,180,180,0.25);">
+          <div class="sh-label" style="font-size:clamp(12px,1.5vh,17px);">⬡ Invoice AI</div>
+          <div style="font-family:var(--font-mono);font-size:clamp(9px,1vh,11px);color:rgba(0,190,180,0.9);letter-spacing:0.1em;margin-bottom:6px;">PRODUCTION · 🧠 AI</div>
+          <div class="studio-pills">
+            <span>AI Invoice Intelligence</span>
+            <span>Predicts payment dates</span>
+            <span>Receivables forecasting</span>
+            <span>Historical scoring</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 2px;">
+          <span style="font-family:var(--font-mono);font-size:18px;color:var(--border);">⌇</span>
+        </div>
         <div class="studio-card" id="sc1" style="border-color:rgba(230,180,0,0.25);">
           <div class="sh-label" style="font-size:clamp(12px,1.5vh,17px);">⬡ CashAI V2</div>
           <div style="font-family:var(--font-mono);font-size:clamp(9px,1vh,11px);color:rgba(230,180,0,0.9);letter-spacing:0.1em;margin-bottom:6px;">PROTOTYPE · GENAI</div>
@@ -1189,17 +1202,19 @@
       <div style="font-family:var(--font-mono);font-size:clamp(9px,1vh,11px);letter-spacing:0.16em;color:var(--muted);text-align:center;margin-bottom:8px;">FORECAST APPROACH SELECTION</div>
       <div style="position:relative;height:36px;" id="fBar">
         <!-- Track -->
-        <div style="position:absolute;top:50%;left:0;right:0;height:6px;transform:translateY(-50%);border-radius:3px;background:linear-gradient(90deg,var(--magenta) 0%,rgba(230,0,126,0.5) 33%,rgba(230,180,0,0.8) 50%,rgba(230,255,0,0.4) 66%,rgba(232,234,240,0.2) 100%);"></div>
+        <div style="position:absolute;top:50%;left:0;right:0;height:6px;transform:translateY(-50%);border-radius:3px;background:linear-gradient(90deg,var(--magenta) 0%,rgba(230,0,126,0.5) 20%,rgba(0,190,180,0.7) 37%,rgba(230,180,0,0.8) 55%,rgba(230,255,0,0.4) 72%,rgba(232,234,240,0.2) 100%);"></div>
         <!-- Node labels above -->
-        <div style="position:absolute;top:0;left:20%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">CashAI V1<br><span style="color:var(--magenta);">Prophet</span></div>
-        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">CashAI V2<br><span style="color:rgba(230,180,0,0.9);">TAI</span></div>
-        <div style="position:absolute;top:0;left:80%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">Modeling<br><span style="color:rgba(232,234,240,0.5);">Rules</span></div>
+        <div style="position:absolute;top:0;left:15%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">CashAI V1<br><span style="color:var(--magenta);">Prophet</span></div>
+        <div style="position:absolute;top:0;left:38%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">Invoice AI<br><span style="color:rgba(0,190,180,0.9);">Receivables</span></div>
+        <div style="position:absolute;top:0;left:62%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">CashAI V2<br><span style="color:rgba(230,180,0,0.9);">TAI</span></div>
+        <div style="position:absolute;top:0;left:85%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">Modeling<br><span style="color:rgba(232,234,240,0.5);">Rules</span></div>
         <!-- Fixed dots -->
-        <div style="position:absolute;top:50%;left:20%;width:10px;height:10px;border-radius:50%;background:var(--magenta);transform:translate(-50%,-50%);box-shadow:0 0 8px var(--magenta);pointer-events:none;"></div>
-        <div style="position:absolute;top:50%;left:50%;width:10px;height:10px;border-radius:50%;background:rgba(230,180,0,0.9);transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(230,180,0,0.5);pointer-events:none;"></div>
-        <div style="position:absolute;top:50%;left:80%;width:10px;height:10px;border-radius:50%;background:var(--dark3);border:1px solid rgba(232,234,240,0.4);transform:translate(-50%,-50%);pointer-events:none;"></div>
+        <div style="position:absolute;top:50%;left:15%;width:10px;height:10px;border-radius:50%;background:var(--magenta);transform:translate(-50%,-50%);box-shadow:0 0 8px var(--magenta);pointer-events:none;"></div>
+        <div style="position:absolute;top:50%;left:38%;width:10px;height:10px;border-radius:50%;background:rgba(0,190,180,0.9);transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(0,190,180,0.5);pointer-events:none;"></div>
+        <div style="position:absolute;top:50%;left:62%;width:10px;height:10px;border-radius:50%;background:rgba(230,180,0,0.9);transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(230,180,0,0.5);pointer-events:none;"></div>
+        <div style="position:absolute;top:50%;left:85%;width:10px;height:10px;border-radius:50%;background:var(--dark3);border:1px solid rgba(232,234,240,0.4);transform:translate(-50%,-50%);pointer-events:none;"></div>
         <!-- Draggable cursor -->
-        <div id="fCursor" style="position:absolute;top:50%;left:20%;width:22px;height:22px;border-radius:50%;background:white;border:3px solid var(--yellow);transform:translate(-50%,-50%);cursor:grab;z-index:10;box-shadow:0 0 14px rgba(230,255,0,0.7);transition:box-shadow 0.2s;"></div>
+        <div id="fCursor" style="position:absolute;top:50%;left:15%;width:22px;height:22px;border-radius:50%;background:white;border:3px solid var(--yellow);transform:translate(-50%,-50%);cursor:grab;z-index:10;box-shadow:0 0 14px rgba(230,255,0,0.7);transition:box-shadow 0.2s;"></div>
       </div>
       <!-- Axis labels -->
       <div style="display:flex;justify-content:space-between;margin-top:2px;padding:0 2px;">
@@ -2434,30 +2449,26 @@
 
 
       let dragging = false, startX = 0, startLeft = 0;
-      let pct = 20; // start at CashAI V1 position (20%)
+      let pct = 15; // start at CashAI V1 position (15%)
 
       function setPct(p) {
         pct = Math.max(5, Math.min(95, p));
         cursor.style.left = pct + '%';
-        // Highlight logic:
-        // 0-35%  → AI Forecasting highlighted (extrapolation zone)
-        // 35-65% → both highlighted (TAI = blend)
-        // 65-100%→ Liquidity Modeling highlighted (rule-based zone)
-        ['sc0','sc1','sc2'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('fc-highlight','fc-dim');}});
-        const ids = ['sc0','sc1','sc2'];
-        if (pct < 33) {
-          document.getElementById('sc0').classList.add('fc-highlight');
-          document.getElementById('sc1').classList.add('fc-dim');
-          document.getElementById('sc2').classList.add('fc-dim');
-        } else if (pct < 66) {
-          document.getElementById('sc1').classList.add('fc-highlight');
-          document.getElementById('sc0').classList.add('fc-dim');
-          document.getElementById('sc2').classList.add('fc-dim');
-        } else {
-          document.getElementById('sc2').classList.add('fc-highlight');
-          document.getElementById('sc0').classList.add('fc-dim');
-          document.getElementById('sc1').classList.add('fc-dim');
-        }
+        // Highlight logic for 4 cards:
+        // 0-25%   → CashAI V1 highlighted
+        // 25-50%  → Invoice AI highlighted
+        // 50-75%  → CashAI V2 highlighted
+        // 75-100% → Liquidity Modeling highlighted
+        ['sc0','scInv','sc1','sc2'].forEach(id=>{const el=document.getElementById(id);if(el){el.classList.remove('fc-highlight','fc-dim');}});
+        let active;
+        if (pct < 25) active = 'sc0';
+        else if (pct < 50) active = 'scInv';
+        else if (pct < 75) active = 'sc1';
+        else active = 'sc2';
+        ['sc0','scInv','sc1','sc2'].forEach(id=>{
+          const el=document.getElementById(id);
+          if(el) el.classList.add(id===active?'fc-highlight':'fc-dim');
+        });
       }
 
       cursor.addEventListener('mousedown', e => {
@@ -2488,7 +2499,7 @@
       document.addEventListener('touchend', () => { dragging = false; });
 
       // Init position
-      setPct(20);
+      setPct(15);
     }
 
     window.addEventListener('slideChange', e => {
