@@ -130,15 +130,15 @@
   /* ── 70s BUBBLE ORBS ── */
   .orb {
     position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
-    filter: blur(40px); opacity: 0;
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    transform: scale(0.8);
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+    transform: scale(0.7);
   }
   .slide.active .orb { opacity: 1; transform: scale(1); }
-  .orb--pink { background: radial-gradient(circle at 30% 30%, #ff6b9d, #e8326e 60%, #8b1a4a); }
-  .orb--yellow { background: radial-gradient(circle at 30% 30%, #ffe066, #ff9900 60%, #cc6600); }
-  .orb--teal { background: radial-gradient(circle at 30% 30%, #66ffcc, #00cc99 60%, #006644); }
-  .orb--magenta { background: radial-gradient(circle at 35% 35%, #ff3399, #cc0066 55%, #660033); }
+  .orb--pink { background: radial-gradient(circle at 35% 30%, #ff99bb, #e8326e 45%, #9b1050 75%, #4a0a28); }
+  .orb--yellow { background: radial-gradient(circle at 35% 30%, #ffe566, #ff9900 45%, #cc6600 75%, #663300); }
+  .orb--teal { background: radial-gradient(circle at 35% 30%, #88ffd5, #00cc88 45%, #006644 75%, #003322); }
+  .orb--magenta { background: radial-gradient(circle at 35% 30%, #ff66aa, #cc0066 45%, #880044 75%, #440022); }
 
   /* ── SLIDE 1: TITLE ── */
   .title-eyebrow { font-family: var(--font-mono); font-size: clamp(11px,1.2vh,14px); letter-spacing: 0.25em; text-transform: uppercase; color: var(--magenta); margin-bottom: 16px; }
@@ -656,9 +656,8 @@
 
 <!-- ═══════════ SLIDE 1 · TITLE ═══════════ -->
 <div class="slide active" id="s1">
-  <div class="orb orb--yellow" style="width:280px;height:280px;top:-80px;left:-60px;"></div>
-  <div class="orb orb--pink" style="width:200px;height:200px;bottom:60px;right:40px;transition-delay:0.2s;"></div>
-  <div class="orb orb--teal" style="width:140px;height:140px;bottom:-30px;right:-20px;transition-delay:0.4s;"></div>
+  <div class="orb orb--yellow" style="width:90px;height:90px;top:-25px;left:-20px;"></div>
+  <div class="orb orb--pink" style="width:70px;height:70px;bottom:30px;right:20px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">Kyriba Product Vision</div>
@@ -688,8 +687,8 @@
 
 <!-- ═══════════ SLIDE 2 · USE CASES ═══════════ -->
 <div class="slide" id="s2">
-  <div class="orb orb--pink" style="width:160px;height:160px;top:-40px;right:120px;"></div>
-  <div class="orb orb--yellow" style="width:120px;height:120px;bottom:-20px;left:60px;transition-delay:0.3s;"></div>
+  <div class="orb orb--pink" style="width:60px;height:60px;top:-15px;right:80px;"></div>
+  <div class="orb orb--yellow" style="width:50px;height:50px;bottom:-10px;left:40px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">AI Use Cases</div>
@@ -751,8 +750,8 @@
 
 <!-- ═══════════ SLIDE 2 · CashAI V1 ═══════════ -->
 <div class="slide" id="s3">
-  <div class="orb orb--teal" style="width:200px;height:200px;top:-50px;left:-40px;"></div>
-  <div class="orb orb--magenta" style="width:130px;height:130px;bottom:40px;right:30px;transition-delay:0.2s;"></div>
+  <div class="orb orb--yellow" style="width:75px;height:75px;top:-20px;left:-15px;"></div>
+  <div class="orb orb--pink" style="width:55px;height:55px;bottom:20px;right:15px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">CashAI V1 · What We Built</div>
@@ -791,8 +790,8 @@
 
 <!-- ═══════════ SLIDE 3 · LIMITATIONS ═══════════ -->
 <div class="slide" id="s4">
-  <div class="orb orb--yellow" style="width:180px;height:180px;top:-40px;right:-30px;"></div>
-  <div class="orb orb--pink" style="width:240px;height:240px;bottom:-60px;left:-50px;transition-delay:0.3s;"></div>
+  <div class="orb orb--yellow" style="width:65px;height:65px;top:-15px;right:-10px;"></div>
+  <div class="orb orb--pink" style="width:80px;height:80px;bottom:-20px;left:-15px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">CashAI V1 · Ceiling</div>
@@ -913,8 +912,8 @@
 
 <!-- ═══════════ SLIDE 4 · TAI ═══════════ -->
 <div class="slide" id="s5">
-  <div class="orb orb--yellow" style="width:250px;height:250px;top:-70px;left:-50px;"></div>
-  <div class="orb orb--teal" style="width:120px;height:120px;bottom:20px;right:30px;transition-delay:0.3s;"></div>
+  <div class="orb orb--yellow" style="width:85px;height:85px;top:-22px;left:-18px;"></div>
+  <div class="orb orb--pink" style="width:55px;height:55px;bottom:15px;right:10px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">TAI · Trusted AI Architecture</div>
@@ -1022,8 +1021,8 @@
 
 <!-- ═══════════ SLIDE 6 · USE CASES ═══════════ -->
 <div class="slide" id="s6">
-  <div class="orb orb--magenta" style="width:170px;height:170px;top:-30px;left:100px;"></div>
-  <div class="orb orb--yellow" style="width:150px;height:150px;bottom:-30px;right:-20px;transition-delay:0.2s;"></div>
+  <div class="orb orb--pink" style="width:60px;height:60px;top:-12px;left:60px;"></div>
+  <div class="orb orb--yellow" style="width:55px;height:55px;bottom:-10px;right:-8px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">TAI in Action · Use Cases</div>
@@ -1094,8 +1093,8 @@
 
 <!-- ═══════════ SLIDE 7 · DEMO VIDEO ═══════════ -->
 <div class="slide" id="s7">
-  <div class="orb orb--pink" style="width:220px;height:220px;bottom:-50px;left:-40px;"></div>
-  <div class="orb orb--teal" style="width:140px;height:140px;top:-30px;right:80px;transition-delay:0.3s;"></div>
+  <div class="orb orb--pink" style="width:75px;height:75px;bottom:-18px;left:-15px;"></div>
+  <div class="orb orb--yellow" style="width:50px;height:50px;top:-10px;right:50px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">TAI · Prototype Recording</div>
@@ -1146,9 +1145,8 @@
 
 <!-- ═══════════ SLIDE 5 · ALP ═══════════ -->
 <div class="slide" id="s8">
-  <div class="orb orb--teal" style="width:190px;height:190px;top:-40px;left:-30px;"></div>
-  <div class="orb orb--pink" style="width:160px;height:160px;bottom:30px;right:50px;transition-delay:0.2s;"></div>
-  <div class="orb orb--yellow" style="width:120px;height:120px;top:40px;right:-20px;transition-delay:0.4s;"></div>
+  <div class="orb orb--yellow" style="width:70px;height:70px;top:-15px;left:-12px;"></div>
+  <div class="orb orb--pink" style="width:65px;height:65px;bottom:15px;right:25px;transition-delay:0.2s;"></div>
   <div class="grid-bg"></div>
   <div class="slide-header">
     <div class="tag">Liquidity Planning · The Ultimate Forecast Toolbox</div>
