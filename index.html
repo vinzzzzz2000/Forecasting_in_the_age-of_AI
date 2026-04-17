@@ -39,12 +39,14 @@
     display: flex; flex-direction: column;
     padding-bottom: 52px;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    transform: translateY(24px);
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.7s;
+    will-change: transform, opacity;
+    transform: translateY(100%) scale(0.95);
+    filter: blur(4px);
     overflow: hidden;
   }
-  .slide.active { opacity: 1; pointer-events: all; transform: translateY(0); }
-  .slide.out    { opacity: 0; transform: translateY(-24px); }
+  .slide.active { opacity: 1; pointer-events: all; transform: translateY(0) scale(1); filter: blur(0); }
+  .slide.above  { opacity: 0; transform: translateY(-30%) scale(0.9); filter: blur(6px); pointer-events: none; }
 
   .progress-bar {
     position: fixed; top: 0; left: 0; height: 2px;
@@ -1261,10 +1263,8 @@
 
 <!-- NAV -->
 <div class="nav">
-  <button class="nav-btn" id="prev">←</button>
   <div id="dots"></div>
   <span class="slide-counter" id="counter">1 / 8</span>
-  <button class="nav-btn" id="next">→</button>
   <button id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀</button>
 </div>
 
@@ -1284,27 +1284,47 @@
     dots.push(d);
   });
 
+  let transitioning = false;
+
   function goTo(n) {
     window.dispatchEvent(new CustomEvent('slideChange', {detail: n}));
-    if (n < 0 || n >= total || n === cur) return;
-    slides[cur].classList.remove('active'); slides[cur].classList.add('out');
-    setTimeout(() => slides.forEach(s => s.classList.remove('out')), 650);
+    if (n < 0 || n >= total || n === cur || transitioning) return;
+    transitioning = true;
+    const goingDown = n > cur;
+    slides[cur].classList.remove('active');
+    slides[cur].classList.add(goingDown ? 'above' : '');
+    if (!goingDown) slides[cur].style.transform = 'translateY(100%) scale(0.95)';
+    setTimeout(() => { slides.forEach(s => { s.classList.remove('above'); s.style.transform = ''; }); }, 750);
     dots[cur].classList.remove('active');
     cur = n;
     slides[cur].classList.add('active'); dots[cur].classList.add('active');
     counterEl.textContent = `${cur + 1} / ${total}`;
     progressEl.style.width = `${((cur + 1) / total) * 100}%`;
+    setTimeout(() => { transitioning = false; }, 750);
   }
 
-  document.getElementById('prev').addEventListener('click', () => goTo(cur - 1));
-  document.getElementById('next').addEventListener('click', () => goTo(cur + 1));
+  // Scroll wheel
+  let wheelAcc = 0, wheelTimer;
+  document.addEventListener('wheel', e => {
+    if (transitioning) return;
+    wheelAcc += e.deltaY;
+    if (Math.abs(wheelAcc) > 60) { goTo(cur + (wheelAcc > 0 ? 1 : -1)); wheelAcc = 0; }
+  }, {passive: true});
+  document.addEventListener('wheel', () => { clearTimeout(wheelTimer); wheelTimer = setTimeout(() => { wheelAcc = 0; }, 200); }, {passive: true});
+
+  // Touch swipe (vertical)
+  let touchY = 0;
+  document.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, {passive: true});
+  document.addEventListener('touchend', e => {
+    const diff = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50 && !transitioning) goTo(cur + (diff > 0 ? 1 : -1));
+  }, {passive: true});
+
+  // Keys
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(cur + 1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1); }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(cur + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(cur - 1); }
   });
-  let tx = 0;
-  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
-  document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) dx < 0 ? goTo(cur+1) : goTo(cur-1); });
   progressEl.style.width = `${(1/total)*100}%`;
 
   // ── SLIDE 2: Prophet chart animation ──
