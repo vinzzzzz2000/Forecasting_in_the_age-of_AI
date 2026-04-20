@@ -115,16 +115,16 @@
 
   /* ── NAV ── */
   .nav {
-    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 100;
+    position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 100;
     background: rgba(13,16,24,0.55); backdrop-filter: blur(8px);
     border: 1px solid rgba(230,255,0,0.08);
-    border-radius: 20px; padding: 14px 10px;
+    border-radius: 16px; padding: 10px 6px;
     opacity: 0.35; transition: opacity 0.25s ease;
   }
   .nav:hover { opacity: 1; background: rgba(13,16,24,0.90); border-color: rgba(230,255,0,0.22); }
-  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(232,234,240,0.25); cursor: pointer; transition: all 0.25s ease; }
-  .nav-dot.active { background: var(--yellow); transform: scale(1.5); }
+  .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(232,234,240,0.25); cursor: pointer; transition: all 0.25s ease; }
+  .nav-dot.active { background: var(--yellow); transform: scale(1.4); }
   .nav-btn { background: none; border: none; cursor: pointer; color: rgba(232,234,240,0.5); font-size: 16px; padding: 2px 6px; transition: color 0.2s; font-family: var(--font-mono); }
   .nav-btn:hover { color: var(--yellow); }
   .slide-counter { font-family: var(--font-mono); font-size: 14px; color: rgba(232,234,240,0.5); min-width: 32px; text-align: center; }
@@ -1273,7 +1273,7 @@
 <!-- NAV -->
 <div class="nav">
   <div id="dots"></div>
-  <span class="slide-counter" id="counter">1 / 8</span>
+  <span class="slide-counter" id="counter" style="display:none">1 / 8</span>
   <button id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀</button>
 </div>
 
