@@ -115,19 +115,19 @@
 
   /* ── NAV ── */
   .nav {
-    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 8px; z-index: 100;
+    position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 100;
     background: rgba(13,16,24,0.55); backdrop-filter: blur(8px);
     border: 1px solid rgba(230,255,0,0.08);
-    border-radius: 40px; padding: 5px 14px;
+    border-radius: 20px; padding: 14px 10px;
     opacity: 0.35; transition: opacity 0.25s ease;
   }
   .nav:hover { opacity: 1; background: rgba(13,16,24,0.90); border-color: rgba(230,255,0,0.22); }
-  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(232,234,240,0.25); cursor: pointer; transition: all 0.25s ease; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(232,234,240,0.25); cursor: pointer; transition: all 0.25s ease; }
   .nav-dot.active { background: var(--yellow); transform: scale(1.5); }
-  .nav-btn { background: none; border: none; cursor: pointer; color: rgba(232,234,240,0.5); font-size: 13px; padding: 1px 4px; transition: color 0.2s; font-family: var(--font-mono); }
+  .nav-btn { background: none; border: none; cursor: pointer; color: rgba(232,234,240,0.5); font-size: 16px; padding: 2px 6px; transition: color 0.2s; font-family: var(--font-mono); }
   .nav-btn:hover { color: var(--yellow); }
-  .slide-counter { font-family: var(--font-mono); font-size: 12px; color: rgba(232,234,240,0.5); min-width: 32px; text-align: center; }
+  .slide-counter { font-family: var(--font-mono); font-size: 14px; color: rgba(232,234,240,0.5); min-width: 32px; text-align: center; }
 
   /* ── 70s BUBBLE ORBS ── */
   .orb {
@@ -1300,16 +1300,38 @@
     if (n < 0 || n >= total || n === cur || transitioning) return;
     transitioning = true;
     const goingDown = n > cur;
+    
+    // Outgoing slide
     slides[cur].classList.remove('active');
-    slides[cur].classList.add(goingDown ? 'above' : '');
-    if (!goingDown) slides[cur].style.transform = 'translateY(100%) scale(0.95)';
-    setTimeout(() => { slides.forEach(s => { s.classList.remove('above'); s.style.transform = ''; }); }, 750);
+    if (goingDown) {
+      slides[cur].classList.add('above');
+    } else {
+      slides[cur].style.transform = 'translateY(100%) scale(0.95)';
+      slides[cur].style.opacity = '0';
+    }
+    
+    // Incoming slide: position it before transition starts
+    if (!goingDown) {
+      // Coming from above — disable transition, place above, then animate in
+      slides[n].style.transition = 'none';
+      slides[n].style.transform = 'translateY(-30%) scale(0.9)';
+      slides[n].style.opacity = '0';
+      slides[n].offsetHeight; // force reflow
+      slides[n].style.transition = '';
+    }
+    
     dots[cur].classList.remove('active');
     cur = n;
-    slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    slides[cur].classList.add('active');
+    slides[cur].style.transform = '';
+    slides[cur].style.opacity = '';
+    dots[cur].classList.add('active');
     counterEl.textContent = `${cur + 1} / ${total}`;
     progressEl.style.width = `${((cur + 1) / total) * 100}%`;
-    setTimeout(() => { transitioning = false; }, 750);
+    setTimeout(() => {
+      slides.forEach(s => { s.classList.remove('above'); s.style.transform = ''; s.style.opacity = ''; });
+      transitioning = false;
+    }, 750);
   }
 
   // Scroll wheel
