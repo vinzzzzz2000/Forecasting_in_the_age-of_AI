@@ -3482,7 +3482,7 @@ const TRANSLATIONS = {
 };
 
 let currentLang = 'en';
-try { currentLang = localStorage.getItem('kphi_lang') || 'en'; } catch(e) {}
+try { currentLang = (['en','fr'].includes(localStorage.getItem('kphi_lang'))) ? localStorage.getItem('kphi_lang') : 'en'; } catch(e) {}
 
 // innerHTML keys — elements that contain span markup we must preserve
 const HTML_KEYS = new Set(['h2_s2_html','h2_s3_html','h2_s4_html','h2_s5_html','h2_s6_html']);
@@ -3515,8 +3515,8 @@ function toggleLang() {
   applyLang(currentLang === 'en' ? 'fr' : 'en');
 }
 
-// DOM already ready — call directly
-applyLang(currentLang);
+// DOM already ready — delay 1 tick to ensure full paint
+setTimeout(() => applyLang(currentLang), 0);
 
 (function() {
   const btn = document.getElementById('langToggle');
