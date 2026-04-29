@@ -3481,8 +3481,7 @@ const TRANSLATIONS = {
   }
 };
 
-let currentLang = 'en';
-try { currentLang = (['en','fr'].includes(localStorage.getItem('kphi_lang'))) ? localStorage.getItem('kphi_lang') : 'en'; } catch(e) {}
+let currentLang = 'en'; // always default English
 
 // innerHTML keys — elements that contain span markup we must preserve
 const HTML_KEYS = new Set(['h2_s2_html','h2_s3_html','h2_s4_html','h2_s5_html','h2_s6_html']);
