@@ -141,6 +141,25 @@
   .orb--teal { background: radial-gradient(circle at 35% 30%, #88ffd5, #00cc88 45%, #006644 75%, #003322); }
   .orb--magenta { background: radial-gradient(circle at 35% 30%, #ff66aa, #cc0066 45%, #880044 75%, #440022); }
 
+  /* ── SLIDE 9: Animations ── */
+  @keyframes s9FadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes s9FadeIn { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
+  @keyframes s9PillChase { 0%,100% { filter:brightness(1); transform:scale(1); } 50% { filter:brightness(1.8); transform:scale(1.12); } }
+  @keyframes s9ShieldPulse { 0%,100% { box-shadow:0 0 0 0 rgba(230,180,0,0.4); } 50% { box-shadow:0 0 0 18px rgba(230,180,0,0); } }
+  .slide.active .s9-flow { animation: s9FadeIn 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s both; }
+  .slide.active .s9-pills { animation: s9FadeUp 0.5s ease 0.4s both; }
+  .slide.active .s9-cols > *:nth-child(1) { animation: s9FadeUp 0.5s ease 0.55s both; }
+  .slide.active .s9-cols > *:nth-child(2) { animation: s9FadeUp 0.5s ease 0.7s both; }
+  .slide.active .s9-cols > *:nth-child(3) { animation: s9FadeUp 0.5s ease 0.85s both; }
+  .slide.active .s9-pill { animation: s9PillChase 3.2s ease-in-out infinite; }
+  .slide.active .s9-pill:nth-child(1) { animation-delay: 0s; }
+  .slide.active .s9-pill:nth-child(3) { animation-delay: 0.6s; }
+  .slide.active .s9-pill:nth-child(5) { animation-delay: 1.2s; }
+  .slide.active .s9-pill:nth-child(7) { animation-delay: 1.8s; }
+  .slide.active .s9-pill:nth-child(9) { animation-delay: 2.4s; }
+  .slide.active .s9-pill:nth-child(11) { animation-delay: 3.0s; }
+  .s9-hitl { animation: s9ShieldPulse 2.2s ease-in-out infinite; }
+
   /* ── SLIDE 1: TITLE ── */
   .title-eyebrow { font-family: var(--font-mono); font-size: clamp(11px,1.2vh,14px); letter-spacing: 0.25em; text-transform: uppercase; color: var(--magenta); margin-bottom: 16px; }
   .title-main { font-family: var(--font-mono); font-size: clamp(44px,6.5vw,88px); font-weight: 700; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 20px; }
@@ -1283,38 +1302,46 @@
   <div class="slide-body" style="gap:clamp(6px,1vh,14px);justify-content:center;">
     <h2 style="margin-bottom:0 !important;" data-i18n="h2_s9_raw">The <span class="accent">Agentic Loop</span> in Treasury</h2>
 
-    <!-- Full-width: flow diagram -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:clamp(16px,2.5vw,36px);margin:clamp(6px,1.5vh,20px) 0;">
-      <div style="background:var(--dark3);border:1px solid rgba(230,255,0,0.3);border-radius:12px;padding:clamp(14px,2vh,24px) clamp(20px,2.5vw,36px);">
-        <div style="font-family:var(--font-mono);font-size:clamp(18px,2.5vh,26px);color:var(--muted);" data-i18n="s9_loop_user">User Query</div>
+    <!-- Flow diagram with Human-in-the-Loop -->
+    <div class="s9-flow" style="display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,28px);margin:clamp(4px,1vh,16px) 0;">
+      <div style="background:var(--dark3);border:1px solid rgba(230,255,0,0.3);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(18px,2vw,32px);">
+        <div style="font-family:var(--font-mono);font-size:clamp(16px,2.2vh,24px);color:var(--muted);" data-i18n="s9_loop_user">User Query</div>
       </div>
-      <span style="color:var(--yellow);font-size:clamp(32px,5vh,52px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
-      <div style="background:rgba(230,255,0,0.04);border:2.5px solid rgba(230,255,0,0.5);border-radius:16px;padding:clamp(16px,2.5vh,30px) clamp(28px,4vw,56px);text-align:center;box-shadow:0 0 50px rgba(230,255,0,0.08);">
-        <div style="font-family:var(--font-mono);font-size:clamp(12px,1.5vh,16px);letter-spacing:0.18em;color:var(--magenta);" data-i18n="s9_hub_tag">AGENTIC ORCHESTRATOR</div>
-        <div style="font-family:var(--font-mono);font-size:clamp(44px,7vh,72px);font-weight:700;color:var(--yellow);" class="ai-glow">TAI</div>
+      <span style="color:var(--yellow);font-size:clamp(28px,4.5vh,46px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
+      <div style="background:rgba(230,255,0,0.04);border:2.5px solid rgba(230,255,0,0.5);border-radius:16px;padding:clamp(14px,2vh,26px) clamp(24px,3.5vw,48px);text-align:center;box-shadow:0 0 50px rgba(230,255,0,0.08);">
+        <div style="font-family:var(--font-mono);font-size:clamp(11px,1.4vh,15px);letter-spacing:0.18em;color:var(--magenta);" data-i18n="s9_hub_tag">AGENTIC ORCHESTRATOR</div>
+        <div style="font-family:var(--font-mono);font-size:clamp(40px,6.5vh,66px);font-weight:700;color:var(--yellow);" class="ai-glow">TAI</div>
       </div>
-      <span style="color:var(--yellow);font-size:clamp(32px,5vh,52px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
-      <div style="background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:clamp(14px,2vh,24px) clamp(20px,2.5vw,36px);">
-        <div style="font-family:var(--font-mono);font-size:clamp(18px,2.5vh,26px);color:var(--text);" data-i18n="s9_loop_answer">Answer · Action</div>
+      <span style="color:var(--yellow);font-size:clamp(28px,4.5vh,46px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
+      <!-- Human in the Loop gate -->
+      <div class="s9-hitl" style="background:rgba(230,180,0,0.06);border:2px solid rgba(230,180,0,0.6);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(16px,2vw,28px);text-align:center;">
+        <div style="font-size:clamp(24px,3.5vh,38px);margin-bottom:4px;">🛡️</div>
+        <div style="font-family:var(--font-mono);font-size:clamp(10px,1.2vh,13px);letter-spacing:0.12em;color:rgba(230,180,0,0.9);" data-i18n="s9_hitl_label">HUMAN APPROVAL</div>
+      </div>
+      <span style="color:var(--yellow);font-size:clamp(28px,4.5vh,46px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
+      <div style="background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(18px,2vw,32px);">
+        <div style="font-family:var(--font-mono);font-size:clamp(16px,2.2vh,24px);color:var(--text);" data-i18n="s9_loop_answer">Execute</div>
       </div>
     </div>
 
-    <!-- Loop pills -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:clamp(6px,1vw,14px);font-family:var(--font-mono);font-size:clamp(15px,2vh,22px);">
-      <span style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:7px 18px;">Plan</span>
+    <!-- Loop pills with chase animation -->
+    <div class="s9-pills" style="display:flex;align-items:center;justify-content:center;gap:clamp(5px,0.8vw,12px);font-family:var(--font-mono);font-size:clamp(14px,1.8vh,20px);">
+      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:6px 16px;">Plan</span>
       <span style="color:var(--muted);">→</span>
-      <span style="color:var(--magenta);font-weight:700;background:rgba(230,0,126,0.08);border:1px solid rgba(230,0,126,0.25);border-radius:5px;padding:7px 18px;">Act</span>
+      <span class="s9-pill" style="color:var(--magenta);font-weight:700;background:rgba(230,0,126,0.08);border:1px solid rgba(230,0,126,0.25);border-radius:5px;padding:6px 16px;">Act</span>
       <span style="color:var(--muted);">→</span>
-      <span style="color:rgba(80,160,255,0.9);font-weight:700;background:rgba(80,160,255,0.08);border:1px solid rgba(80,160,255,0.25);border-radius:5px;padding:7px 18px;">Observe</span>
+      <span class="s9-pill" style="color:rgba(80,160,255,0.9);font-weight:700;background:rgba(80,160,255,0.08);border:1px solid rgba(80,160,255,0.25);border-radius:5px;padding:6px 16px;">Observe</span>
       <span style="color:var(--muted);">→</span>
-      <span style="color:rgba(0,190,180,0.9);font-weight:700;background:rgba(0,190,180,0.08);border:1px solid rgba(0,190,180,0.25);border-radius:5px;padding:7px 18px;">Refine</span>
+      <span class="s9-pill" style="color:rgba(0,190,180,0.9);font-weight:700;background:rgba(0,190,180,0.08);border:1px solid rgba(0,190,180,0.25);border-radius:5px;padding:6px 16px;">Refine</span>
       <span style="color:var(--muted);">→</span>
-      <span style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:7px 18px;">Answer</span>
-      <span style="color:var(--muted);font-size:clamp(13px,1.6vh,17px);margin-left:8px;" data-i18n="s9_loop_repeat">↻ loops until complete</span>
+      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:6px 16px;">Answer</span>
+      <span style="color:var(--muted);">→</span>
+      <span class="s9-pill" style="color:rgba(230,180,0,0.9);font-weight:700;background:rgba(230,180,0,0.08);border:1px solid rgba(230,180,0,0.25);border-radius:5px;padding:6px 16px;">✓ Validate</span>
+      <span style="color:var(--muted);font-size:clamp(12px,1.5vh,16px);margin-left:6px;" data-i18n="s9_loop_repeat">↻ loops until complete</span>
     </div>
 
-    <!-- Bottom: 3 columns — Tools | Treasury examples | Audit -->
-    <div style="display:flex;gap:clamp(8px,1vw,16px);flex:1;min-height:0;align-items:stretch;">
+    <!-- Bottom: 3 columns -->
+    <div class="s9-cols" style="display:flex;gap:clamp(8px,1vw,16px);flex:1;min-height:0;align-items:stretch;">
 
       <!-- COL 1: MCP Tools -->
       <div style="flex:1;display:flex;flex-direction:column;gap:clamp(6px,0.8vh,10px);">
@@ -3655,8 +3682,9 @@ const TRANSLATIONS = {
     h2_s9_html: 'The <span class="accent">Agentic Loop</span> in Treasury',
     s9_desc: 'TAI works through a reasoning loop: <strong style="color:var(--yellow);">Plan → Act → Observe → Refine → Answer</strong>. It repeats until it has gathered enough information — or requests approval before acting. Powered by MCP, it connects to Kyriba APIs and any third-party service.',
     s9_loop_user: 'User Query',
-    s9_loop_answer: 'Answer · Action',
+    s9_loop_answer: 'Execute',
     s9_hub_tag: 'AGENTIC ORCHESTRATOR',
+    s9_hitl_label: 'HUMAN APPROVAL',
     s9_loop_repeat: '↻ loops until complete',
     s9_tools_label: 'TOOLS · MCP',
     s9_tools_kyriba: 'Cash positions · Balances · Forecasts · Payments',
@@ -3812,8 +3840,9 @@ const TRANSLATIONS = {
     h2_s9_html: "La <span class=\"accent\">boucle agentique</span> en trésorerie",
     s9_desc: "TAI fonctionne via une boucle de raisonnement : <strong style=\"color:var(--yellow);\">Planifier → Agir → Observer → Affiner → Répondre</strong>. Il répète jusqu'à avoir assez d'information — ou demande une approbation avant d'agir. Propulsé par MCP, il se connecte aux APIs Kyriba et à tout service tiers.",
     s9_loop_user: 'Requête utilisateur',
-    s9_loop_answer: 'Réponse · Action',
+    s9_loop_answer: 'Exécuter',
     s9_hub_tag: 'ORCHESTRATEUR AGENTIQUE',
+    s9_hitl_label: 'VALIDATION HUMAINE',
     s9_loop_repeat: "↻ boucle jusqu'à complétion",
     s9_tools_label: 'OUTILS · MCP',
     s9_tools_kyriba: 'Positions de trésorerie · Soldes · Prévisions · Paiements',
