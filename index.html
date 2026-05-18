@@ -8,13 +8,21 @@
 <style>
   :root {
     --yellow: #E6FF00;
+    /* Yellow opacity scale (dark mode) */
+    --y03: rgba(230,255,0,0.03); --y04: rgba(230,255,0,0.04); --y05: rgba(230,255,0,0.05);
+    --y06: rgba(230,255,0,0.06); --y08: rgba(230,255,0,0.08); --y10: rgba(230,255,0,0.10);
+    --y15: rgba(230,255,0,0.15); --y18: rgba(230,255,0,0.18); --y20: rgba(230,255,0,0.20);
+    --y25: rgba(230,255,0,0.25); --y30: rgba(230,255,0,0.30); --y35: rgba(230,255,0,0.35);
+    --y40: rgba(230,255,0,0.40); --y45: rgba(230,255,0,0.45); --y50: rgba(230,255,0,0.50);
+    --y60: rgba(230,255,0,0.60); --y70: rgba(230,255,0,0.70); --y80: rgba(230,255,0,0.80);
+    --y85: rgba(230,255,0,0.85); --y90: rgba(230,255,0,0.90);
     --accent: #E6FF00;
     --magenta: #E6007E;
     --dark: #080A0E;
     --dark2: #0D1018;
     --dark3: #141820;
     --mid: #1E2530;
-    --border: rgba(230,255,0,0.15);
+    --border: var(--y15);
     --text: #E8EAF0;
     --muted: rgba(232,234,240,0.70);
     --font-mono: 'Space Mono', monospace;
@@ -57,8 +65,8 @@
   .grid-bg {
     position: absolute; inset: 0; pointer-events: none; opacity: 0.22;
     background-image:
-      linear-gradient(rgba(230,255,0,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(230,255,0,0.06) 1px, transparent 1px);
+      linear-gradient(var(--y06) 1px, transparent 1px),
+      linear-gradient(90deg, var(--y06) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
@@ -86,7 +94,7 @@
   }
   .slide-body::-webkit-scrollbar { width: 4px; }
   .slide-body::-webkit-scrollbar-track { background: transparent; }
-  .slide-body::-webkit-scrollbar-thumb { background: rgba(230,255,0,0.25); border-radius: 2px; }
+  .slide-body::-webkit-scrollbar-thumb { background: var(--y25); border-radius: 2px; }
 
   h1 {
     font-family: var(--font-mono);
@@ -118,11 +126,11 @@
     position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 100;
     background: rgba(13,16,24,0.55); backdrop-filter: blur(8px);
-    border: 1px solid rgba(230,255,0,0.08);
+    border: 1px solid var(--y08);
     border-radius: 16px; padding: 10px 6px;
     opacity: 0.35; transition: opacity 0.25s ease;
   }
-  .nav:hover { opacity: 1; background: rgba(13,16,24,0.90); border-color: rgba(230,255,0,0.22); }
+  .nav:hover { opacity: 1; background: rgba(13,16,24,0.90); border-color: var(--y20); }
   .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(232,234,240,0.25); cursor: pointer; transition: all 0.25s ease; }
   .nav-dot.active { background: var(--yellow); transform: scale(1.4); }
   .nav-btn { background: none; border: none; cursor: pointer; color: rgba(232,234,240,0.5); font-size: 16px; padding: 2px 6px; transition: color 0.2s; font-family: var(--font-mono); }
@@ -285,9 +293,9 @@
   .s2-chart-legend { display: flex; gap: 16px; margin-top: 10px; font-family: var(--font-mono); font-size: clamp(9px,1vh,12px) !important; }
   .leg-actual { color: rgba(80,160,255,0.85); }
   .leg-fore   { color: #E6FF00; }
-  .leg-band   { color: rgba(230,255,0,0.4); }
-  .s2-demo-link { display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(8px,1vh,16px); padding: 8px 18px; background: rgba(230,255,0,0.08); border: 1px solid rgba(230,255,0,0.45); border-radius: 6px; color: var(--yellow); font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; }
-  .s2-demo-link:hover { background: rgba(230,255,0,0.16); border-color: rgba(230,255,0,0.8); box-shadow: 0 0 20px rgba(230,255,0,0.18); }
+  .leg-band   { color: var(--y40); }
+  .s2-demo-link { display: inline-flex; align-items: center; gap: 10px; margin-top: clamp(8px,1vh,16px); padding: 8px 18px; background: var(--y08); border: 1px solid var(--y45); border-radius: 6px; color: var(--yellow); font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; }
+  .s2-demo-link:hover { background: var(--y15); border-color: var(--y80); box-shadow: 0 0 20px var(--y18); }
 
   /* ── SLIDE 3: LIMITATIONS ── */
   .lim-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: clamp(8px,1.2vh,14px); margin-bottom: 0; flex: 1; }
@@ -397,7 +405,7 @@
   /* Top flow: 3-stage pipeline */
   .tai-flow { display: grid; grid-template-columns: 1fr auto 1.2fr auto 1fr; align-items: stretch; gap: 0; flex: 2; min-height: 0; }
   .tai-stage { background: var(--dark3); border: 1px solid var(--border); border-radius: 10px; padding: clamp(10px,1.3vh,16px) clamp(12px,1.2vw,18px); display: flex; flex-direction: column; position: relative; overflow: hidden; }
-  .tai-stage:hover { border-color: rgba(230,255,0,0.35); }
+  .tai-stage:hover { border-color: var(--y35); }
   .tai-stage-tag { font-family: var(--font-mono); font-size: clamp(8px,0.9vh,11px); letter-spacing: 0.18em; text-transform: uppercase; color: var(--magenta); margin-bottom: clamp(2px,0.3vh,6px); }
   .tai-stage-title { font-family: var(--font-mono); font-size: clamp(13px,1.7vh,20px); font-weight: 700; color: var(--text); margin-bottom: clamp(4px,0.5vh,8px); line-height: 1.2; }
   .tai-stage-title .accent { color: var(--yellow); }
@@ -407,7 +415,7 @@
   .tai-stage-foot span { color: var(--yellow); }
   .tai-arrow { display: flex; align-items: center; justify-content: center; padding: 0 clamp(6px,0.8vw,14px); }
   .tai-arrow-inner { display: flex; flex-direction: column; align-items: center; gap: 3px; }
-  .tai-arrow-inner span { font-size: clamp(20px,2.8vh,30px); color: var(--yellow); opacity: 0.7; display: inline-block; animation: arrowFlow 1.6s ease-in-out infinite; text-shadow: 0 0 10px rgba(230,255,0,0.4); }
+  .tai-arrow-inner span { font-size: clamp(20px,2.8vh,30px); color: var(--yellow); opacity: 0.7; display: inline-block; animation: arrowFlow 1.6s ease-in-out infinite; text-shadow: 0 0 10px var(--y40); }
   .tai-arrow-inner div { font-family: var(--font-mono); font-size: clamp(8px,0.9vh,11px); color: var(--muted); white-space: nowrap; }
 
   /* Bottom strip: capabilities + ops + routing */
@@ -416,7 +424,7 @@
   .tai-bottom-label { font-family: var(--font-mono); font-size: clamp(8px,0.9vh,11px); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: clamp(4px,0.5vh,8px); }
   .tai-cap-pills { display: flex; flex-wrap: wrap; gap: 3px; }
   .tai-cap-pill { font-family: var(--font-mono); font-size: clamp(8px,0.9vh,11px); color: var(--magenta); border: 1px solid rgba(230,0,126,0.35); border-radius: 3px; padding: 2px 6px; background: rgba(230,0,126,0.04); }
-  .tai-op-pill { font-family: var(--font-mono); font-size: clamp(8px,0.9vh,10px); color: var(--yellow); border: 1px solid rgba(230,255,0,0.18); border-radius: 3px; padding: 1px 5px; background: rgba(230,255,0,0.04); }
+  .tai-op-pill { font-family: var(--font-mono); font-size: clamp(8px,0.9vh,10px); color: var(--yellow); border: 1px solid var(--y18); border-radius: 3px; padding: 1px 5px; background: var(--y04); }
   .tai-model-row { display: flex; align-items: center; gap: 6px; padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
   .tai-model-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--yellow); flex-shrink: 0; }
   .tai-model-name { font-family: var(--font-mono); font-size: clamp(9px,1vh,12px); color: var(--yellow); font-weight: 700; min-width: clamp(70px,9vw,110px); }
@@ -435,14 +443,14 @@
   .slide.active .tai-bottom-card:nth-child(2) { animation: taiBotIn 0.4s ease 0.9s both; }
   .slide.active .tai-bottom-card:nth-child(3) { animation: taiBotIn 0.4s ease 1.0s both; }
 
-  .s4-video-btn { display: inline-flex; align-items: center; gap: 10px; padding: 7px 22px; background: rgba(230,255,0,0.08); border: 1px solid rgba(230,255,0,0.45); border-radius: 6px; color: var(--yellow); font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; }
-  .s4-video-btn:hover { background: rgba(230,255,0,0.16); border-color: rgba(230,255,0,0.8); box-shadow: 0 0 20px rgba(230,255,0,0.18); }
+  .s4-video-btn { display: inline-flex; align-items: center; gap: 10px; padding: 7px 22px; background: var(--y08); border: 1px solid var(--y45); border-radius: 6px; color: var(--yellow); font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; }
+  .s4-video-btn:hover { background: var(--y15); border-color: var(--y80); box-shadow: 0 0 20px var(--y18); }
 
   /* ── SLIDE 5: ALP ── */
   .alp-diagram { display: grid; grid-template-rows: auto auto auto auto; gap: clamp(8px,1.1vh,14px); max-width: 100%; }
   .alp-row { display: flex; align-items: center; justify-content: center; gap: 16px; }
   .alp-box { background: var(--dark3); border: 1px solid var(--border); border-radius: 8px; padding: clamp(8px,1.1vh,14px) clamp(10px,1.2vw,18px); text-align: center; min-width: 120px; }
-  .alp-box.highlight { border-color: rgba(230,255,0,0.5); box-shadow: 0 0 20px rgba(230,255,0,0.08); }
+  .alp-box.highlight { border-color: var(--y50); box-shadow: 0 0 20px var(--y08); }
   .alp-box.highlight-m { border-color: rgba(230,0,126,0.6); background: rgba(230,0,126,0.06); }
   .box-title { font-family: var(--font-mono); font-size: clamp(12px,1.4vh,16px) !important; font-weight: 700; color: var(--yellow); }
   .box-sub   { font-size: clamp(11px,1.2vh,14px) !important; color: var(--muted); margin-top: 3px; }
@@ -453,7 +461,7 @@
     opacity: 0.85;
     display: inline-block;
     animation: arrowFlow 1.6s ease-in-out infinite;
-    text-shadow: 0 0 12px rgba(230,255,0,0.6);
+    text-shadow: 0 0 12px var(--y60);
   }
   .alp-arrow:nth-child(4) span { animation-delay: 0.3s; }
   .alp-arrow div  { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; color: var(--muted); letter-spacing:0.06em; }
@@ -466,27 +474,27 @@
     50%     { transform: translateX(5px); opacity: 1; }
   }
   .studio-card { transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s; }
-  .studio-card.fc-highlight { border-color: rgba(230,255,0,0.7) !important; box-shadow: 0 0 28px rgba(230,255,0,0.18); }
+  .studio-card.fc-highlight { border-color: var(--y70) !important; box-shadow: 0 0 28px var(--y18); }
   .studio-card.fc-dim       { opacity: 0.35; }
   .studio-card { flex: 1; background: var(--dark3); border: 1px solid var(--border); border-radius: 8px; padding: clamp(18px,2.5vh,32px) clamp(20px,2.5vw,36px); display: flex; flex-direction: column; gap: clamp(12px,1.5vh,20px); justify-content: center; }
   .sh-label { font-family: var(--font-mono); font-size: clamp(16px,2vh,22px) !important; font-weight: 700; color: var(--yellow); letter-spacing: 0.08em; margin-bottom: 4px; }
   .studio-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-  .studio-pills span { background: rgba(230,255,0,0.07); border: 1px solid rgba(230,255,0,0.18); border-radius: 4px; padding: 7px 14px; font-size: clamp(14px,1.6vh,18px) !important; color: #FFFFFF; font-family: var(--font-mono); }
+  .studio-pills span { background: var(--y08); border: 1px solid var(--y18); border-radius: 4px; padding: 7px 14px; font-size: clamp(14px,1.6vh,18px) !important; color: #FFFFFF; font-family: var(--font-mono); }
 
   /* ── SLIDE 6: USE CASES ── */
   .uc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(12px,1.5vw,22px); flex: 1; align-content: stretch; }
   .uc-card { background: var(--dark3); border: 1px solid var(--border); border-radius: 8px; padding: clamp(12px,1.5vh,20px) clamp(14px,1.5vw,22px); display: flex; flex-direction: column; }
   .uc-badge { display: inline-block; font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.12em; border-radius: 3px; padding: 3px 10px; margin-bottom: clamp(6px,0.8vh,12px); }
-  .uc-badge.mvp  { color: var(--yellow); border: 1px solid rgba(230,255,0,0.4); background: rgba(230,255,0,0.06); }
+  .uc-badge.mvp  { color: var(--yellow); border: 1px solid var(--y40); background: var(--y06); }
   .uc-badge.next { color: var(--magenta); border: 1px solid rgba(230,0,126,0.4); background: rgba(230,0,126,0.06); }
   .uc-title { font-family: var(--font-mono); font-size: clamp(18px,2.2vh,26px) !important; font-weight: 700; color: var(--text); margin-bottom: clamp(4px,0.7vh,10px); }
-  .uc-rule { font-size: clamp(14px,1.7vh,20px) !important; color: var(--text); padding: clamp(7px,1vh,12px) clamp(12px,1.2vw,18px); margin-bottom: clamp(6px,0.8vh,12px); border-left: 3px solid var(--yellow); background: rgba(230,255,0,0.03); border-radius: 0 4px 4px 0; }
+  .uc-rule { font-size: clamp(14px,1.7vh,20px) !important; color: var(--text); padding: clamp(7px,1vh,12px) clamp(12px,1.2vw,18px); margin-bottom: clamp(6px,0.8vh,12px); border-left: 3px solid var(--yellow); background: var(--y03); border-radius: 0 4px 4px 0; }
   .uc-card > div[style*="margin-top:14px"] { margin-top: auto !important; padding-top: 10px; }
 
 
   /* ── SLIDE 6: clickable use-case cards + overlay ── */
   .uc-card { cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
-  .uc-card:hover { border-color: rgba(230,255,0,0.4); box-shadow: 0 0 20px rgba(230,255,0,0.08); }
+  .uc-card:hover { border-color: var(--y40); box-shadow: 0 0 20px var(--y08); }
   .uc-card.uc-dimmed { opacity: 0.3; pointer-events: none; }
 
   .uc-overlay { display: none; position: absolute; inset: 0; z-index: 60; }
@@ -494,7 +502,7 @@
   .uc-overlay-inner {
     position: fixed;
     background: var(--dark2);
-    border: 1px solid rgba(230,255,0,0.25);
+    border: 1px solid var(--y25);
     border-radius: 10px;
     overflow: hidden;
     transition: top 0.44s cubic-bezier(0.16,1,0.3,1),
@@ -513,12 +521,12 @@
   .uc-ov-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; z-index: 2; line-height: 1; }
   .uc-ov-close:hover { color: var(--text); }
   .uc-ov-badge { display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; border-radius: 3px; padding: 3px 12px; width: fit-content; }
-  .uc-ov-badge.mvp  { color: var(--yellow); border: 1px solid rgba(230,255,0,0.4); background: rgba(230,255,0,0.06); }
+  .uc-ov-badge.mvp  { color: var(--yellow); border: 1px solid var(--y40); background: var(--y06); }
   .uc-ov-badge.next { color: var(--magenta); border: 1px solid rgba(230,0,126,0.4); background: rgba(230,0,126,0.06); }
   .uc-ov-title { font-family: var(--font-mono); font-size: clamp(20px,2.8vh,32px); font-weight: 700; color: var(--text); }
   .uc-ov-desc { font-size: clamp(14px,1.7vh,19px); color: var(--muted); line-height: 1.6; max-width: 640px; }
   .uc-ov-rules { display: flex; flex-direction: column; gap: 8px; }
-  .uc-ov-rule { font-size: clamp(14px,1.7vh,19px); color: var(--text); padding: 10px 16px; border-left: 3px solid var(--yellow); background: rgba(230,255,0,0.03); border-radius: 0 4px 4px 0; }
+  .uc-ov-rule { font-size: clamp(14px,1.7vh,19px); color: var(--text); padding: 10px 16px; border-left: 3px solid var(--yellow); background: var(--y03); border-radius: 0 4px 4px 0; }
   .uc-ov-model { font-family: var(--font-mono); font-size: clamp(12px,1.4vh,15px); color: var(--muted); }
   .uc-ov-model span { color: var(--yellow); }
   .uc-ov-chart { flex: 1; min-height: 140px; max-height: 200px; position: relative; }
@@ -529,47 +537,47 @@
   .conv-sources { display: flex; align-items: center; justify-content: center; gap: clamp(16px,2vw,32px); }
   .conv-node { display: flex; flex-direction: column; align-items: center; gap: 3px; }
   .conv-icon { width: clamp(32px,4vh,48px); height: clamp(32px,4vh,48px); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: clamp(14px,1.8vh,20px); }
-  .conv-icon.yellow { background: rgba(230,255,0,0.15); border: 2px solid rgba(230,255,0,0.4); color: var(--yellow); }
+  .conv-icon.yellow { background: var(--y15); border: 2px solid var(--y40); color: var(--yellow); }
   .conv-icon.magenta { background: rgba(230,0,126,0.15); border: 2px solid rgba(230,0,126,0.4); color: var(--magenta); }
   .conv-icon.blue    { background: rgba(80,140,255,0.15); border: 2px solid rgba(80,140,255,0.4); color: rgba(80,160,255,0.9); }
   .conv-label { font-family: var(--font-mono); font-size: clamp(12px,1.4vh,16px) !important; font-weight: 700; color: var(--text); margin-top: 6px; }
   .conv-sub   { font-size: clamp(10px,1.2vh,14px) !important; color: var(--muted); text-align: center; }
-  .conv-destination { background: rgba(230,255,0,0.04); border: 2px solid rgba(230,255,0,0.5); border-radius: 12px; padding: clamp(14px,1.8vh,24px) clamp(20px,2.5vw,36px); text-align: center; max-width: 600px; box-shadow: 0 0 40px rgba(230,255,0,0.08); }
+  .conv-destination { background: var(--y04); border: 2px solid var(--y50); border-radius: 12px; padding: clamp(14px,1.8vh,24px) clamp(20px,2.5vw,36px); text-align: center; max-width: 600px; box-shadow: 0 0 40px var(--y08); }
   .dest-tag   { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.18em; text-transform: uppercase; color: var(--magenta); margin-bottom: 8px; }
   .dest-title { font-family: var(--font-mono); font-size: clamp(28px,4.5vh,52px) !important; font-weight: 700; color: var(--yellow); margin-bottom: 10px; }
   .dest-sub   { font-size: clamp(12px,1.4vh,16px) !important; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
   .conv-attributes { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .conv-attr { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); border: 1px solid rgba(230,255,0,0.3); border-radius: 3px; padding: 4px 12px; background: rgba(230,255,0,0.05); }
+  .conv-attr { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px) !important; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); border: 1px solid var(--y30); border-radius: 3px; padding: 4px 12px; background: var(--y05); }
 
 
   /* ALP links */
-  .alp-link { color: var(--yellow); text-decoration: none; border-bottom: 1px dashed rgba(230,255,0,0.4); padding-bottom: 1px; transition: border-color 0.2s; }
-  .alp-link:hover { border-color: rgba(230,255,0,1); }
+  .alp-link { color: var(--yellow); text-decoration: none; border-bottom: 1px dashed var(--y40); padding-bottom: 1px; transition: border-color 0.2s; }
+  .alp-link:hover { border-color: var(--y90); }
 
   /* AI glow pulse */
   @keyframes alpAdvGlow {
-    0%,100% { text-shadow: 0 0 10px rgba(230,255,0,0.5), 0 0 24px rgba(230,255,0,0.2); opacity:1; }
-    45%     { text-shadow: 0 0 28px rgba(230,255,0,1), 0 0 60px rgba(230,255,0,0.6), 0 0 100px rgba(230,255,0,0.25); opacity:1; }
+    0%,100% { text-shadow: 0 0 10px var(--y50), 0 0 24px var(--y20); opacity:1; }
+    45%     { text-shadow: 0 0 28px var(--y90), 0 0 60px var(--y60), 0 0 100px var(--y25); opacity:1; }
   }
   .alp-advanced-glow.active { animation: alpAdvGlow 2.6s ease-in-out infinite; }
 
   @keyframes playPulse {
-    0%,100% { box-shadow: 0 0 0 0 rgba(230,255,0,0.25); }
-    50%      { box-shadow: 0 0 0 22px rgba(230,255,0,0); }
+    0%,100% { box-shadow: 0 0 0 0 var(--y25); }
+    50%      { box-shadow: 0 0 0 22px var(--y03); }
   }
 
   .ai-glow { display: inline-block; animation: aiPulse 2.8s ease-in-out infinite; transform-origin: center bottom; }
   @keyframes aiPulse {
-    0%   { text-shadow: 0 0 12px rgba(230,255,0,0.4), 0 0 30px rgba(230,255,0,0.15); transform: scale(1); }
-    40%  { text-shadow: 0 0 28px rgba(230,255,0,1), 0 0 60px rgba(230,255,0,0.55), 0 0 100px rgba(230,255,0,0.25); transform: scale(1.07); }
-    60%  { text-shadow: 0 0 22px rgba(230,255,0,0.85), 0 0 50px rgba(230,255,0,0.4); transform: scale(1.05); }
-    100% { text-shadow: 0 0 12px rgba(230,255,0,0.4), 0 0 30px rgba(230,255,0,0.15); transform: scale(1); }
+    0%   { text-shadow: 0 0 12px var(--y40), 0 0 30px var(--y15); transform: scale(1); }
+    40%  { text-shadow: 0 0 28px var(--y90), 0 0 60px var(--y60), 0 0 100px var(--y25); transform: scale(1.07); }
+    60%  { text-shadow: 0 0 22px var(--y85), 0 0 50px var(--y40); transform: scale(1.05); }
+    100% { text-shadow: 0 0 12px var(--y40), 0 0 30px var(--y15); transform: scale(1); }
   }
 
   /* Bold word highlight (slide 4) */
   @keyframes boldPulse {
     0%,100% { color: var(--text); text-shadow: none; }
-    30%,50% { color: var(--yellow); text-shadow: 0 0 18px rgba(230,255,0,0.7), 0 0 40px rgba(230,255,0,0.3); }
+    30%,50% { color: var(--yellow); text-shadow: 0 0 18px var(--y70), 0 0 40px var(--y30); }
   }
   .pill-list li strong.bold-anim { display: inline-block; }
   .pill-list li strong.bold-anim.pulse { animation: boldPulse 1.8s ease forwards; transform: scale(1.08); }
@@ -607,6 +615,14 @@
   body.light {
     --accent: #1A3A6B;
     --yellow: #1A3A6B;
+    /* Yellow opacity scale (light mode — navy blue) */
+    --y03: rgba(26,58,107,0.03); --y04: rgba(26,58,107,0.04); --y05: rgba(26,58,107,0.05);
+    --y06: rgba(26,58,107,0.06); --y08: rgba(26,58,107,0.08); --y10: rgba(26,58,107,0.10);
+    --y15: rgba(26,58,107,0.15); --y18: rgba(26,58,107,0.18); --y20: rgba(26,58,107,0.20);
+    --y25: rgba(26,58,107,0.25); --y30: rgba(26,58,107,0.30); --y35: rgba(26,58,107,0.35);
+    --y40: rgba(26,58,107,0.40); --y45: rgba(26,58,107,0.45); --y50: rgba(26,58,107,0.50);
+    --y60: rgba(26,58,107,0.60); --y70: rgba(26,58,107,0.70); --y80: rgba(26,58,107,0.80);
+    --y85: rgba(26,58,107,0.85); --y90: rgba(26,58,107,0.90);
     --dark:   #F4F5F7;
     --dark2:  #EBEDF0;
     --dark3:  #E2E4E9;
@@ -682,7 +698,7 @@
 
   /* Theme toggle button */
   #themeToggle {
-    background: none; border: 1px solid rgba(230,255,0,0.3); border-radius: 20px;
+    background: none; border: 1px solid var(--y30); border-radius: 20px;
     color: rgba(232,234,240,0.6); font-family: var(--font-mono); font-size: 11px;
     letter-spacing: 0.1em; padding: 3px 10px; cursor: pointer;
     transition: border-color 0.2s, color 0.2s, background 0.2s;
@@ -719,7 +735,7 @@
     <p class="title-sub" data-i18n="sub_s1">How TAI, CashAI and Advanced Liquidity Planning are converging into the next generation of cash forecasting.</p>
     <div style="display:flex;gap:32px;align-items:center;flex-wrap:wrap;">
       <div class="author-line">
-        <img src="img/vincent.png" style="width:52px;height:52px;border-radius:50%;border:2px solid rgba(230,255,0,0.4);" alt="VD">
+        <img src="img/vincent.png" style="width:52px;height:52px;border-radius:50%;border:2px solid var(--y40);" alt="VD">
         <div>
           <div class="author-name">Vincent Donnat</div>
           <div class="author-role">// Director, Liquidity · Kyriba</div>
@@ -876,7 +892,7 @@
             <rect x="48" y="40" width="8" height="32" rx="2" fill="rgba(230,0,126,0.15)" stroke="rgba(230,0,126,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
             <rect x="60" y="44" width="8" height="28" rx="2" fill="rgba(230,0,126,0.15)" stroke="rgba(230,0,126,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
             <line x1="10" y1="28" x2="68" y2="28" stroke="rgba(230,0,126,0.2)" stroke-width="1" stroke-dasharray="4 4"/>
-            <path d="M10 30 Q28 18 46 32" stroke="rgba(230,255,0,0.5)" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+            <path d="M10 30 Q28 18 46 32" stroke="var(--y50)" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
             <line x1="15" y1="10" x2="65" y2="62" stroke="rgba(230,0,126,0.6)" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="65" y1="10" x2="15" y2="62" stroke="rgba(230,0,126,0.6)" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
@@ -896,7 +912,7 @@
             <circle cx="40" cy="14" r="5" fill="none" stroke="rgba(230,0,126,0.3)" stroke-width="1" stroke-dasharray="2 2"/>
             <line x1="10" y1="40" x2="16" y2="40" stroke="rgba(230,0,126,0.2)" stroke-width="1"/>
             <line x1="64" y1="40" x2="70" y2="40" stroke="rgba(230,0,126,0.2)" stroke-width="1"/>
-            <path d="M22 70 L58 70" stroke="rgba(230,255,0,0.3)" stroke-width="1" stroke-dasharray="3 5"/>
+            <path d="M22 70 L58 70" stroke="var(--y30)" stroke-width="1" stroke-dasharray="3 5"/>
           </svg>
         </div>
       </div>
@@ -934,8 +950,8 @@
             <line x1="59" y1="19" x2="51" y2="31" stroke="rgba(230,0,126,0.12)" stroke-width="1" stroke-dasharray="3 3"/>
             <line x1="21" y1="61" x2="29" y2="49" stroke="rgba(230,0,126,0.12)" stroke-width="1" stroke-dasharray="3 3"/>
             <line x1="59" y1="61" x2="51" y2="49" stroke="rgba(230,0,126,0.12)" stroke-width="1" stroke-dasharray="3 3"/>
-            <path d="M26 40 L8 40" stroke="rgba(230,255,0,0.25)" stroke-width="1" stroke-dasharray="2 3"/>
-            <path d="M54 40 L72 40" stroke="rgba(230,255,0,0.25)" stroke-width="1" stroke-dasharray="2 3"/>
+            <path d="M26 40 L8 40" stroke="var(--y25)" stroke-width="1" stroke-dasharray="2 3"/>
+            <path d="M54 40 L72 40" stroke="var(--y25)" stroke-width="1" stroke-dasharray="2 3"/>
           </svg>
         </div>
       </div>
@@ -996,7 +1012,7 @@
         <div class="tai-arrow"><div class="tai-arrow-inner"><span>→</span><div data-i18n="s5_arrow1">parses</div></div></div>
 
         <!-- Stage 2: Engine -->
-        <div class="tai-stage" style="border-color:rgba(230,255,0,0.25);">
+        <div class="tai-stage" style="border-color:var(--y25);">
           <div class="tai-stage-tag" data-i18n="s5_tag2">02 · TAI Engine</div>
           <div class="tai-stage-title" data-i18n="s5_title2_raw">Agentic <span class="accent">Reasoning</span></div>
           <div class="tai-stage-visual"><canvas id="taiC2"></canvas></div>
@@ -1056,21 +1072,21 @@
 
 <!-- Video modal -->
 <div id="s5VideoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;">
-  <div style="position:relative;width:min(900px,92vw);background:#0d1017;border:1px solid rgba(230,255,0,0.25);border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
+  <div style="position:relative;width:min(900px,92vw);background:#0d1017;border:1px solid var(--y25);border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.7);">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.07);">
-      <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;color:rgba(230,255,0,0.8);" data-i18n="s7_modal_tag">// TAI &#183; Demo Recording</span>
+      <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;color:var(--y80);" data-i18n="s7_modal_tag">// TAI &#183; Demo Recording</span>
       <div style="display:flex;align-items:center;gap:12px;">
-        <a href="https://drive.google.com/file/d/1HcoM2lYlNK_Bgd48jLKRmWKTh_hMjwDB/view" target="_blank" rel="noopener" class="alp-link" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;padding:3px 10px;border:1px solid rgba(230,255,0,0.3);border-radius:3px;" data-i18n="s7_open_drive">OPEN IN DRIVE &#8599;</a>
+        <a href="https://drive.google.com/file/d/1HcoM2lYlNK_Bgd48jLKRmWKTh_hMjwDB/view" target="_blank" rel="noopener" class="alp-link" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;padding:3px 10px;border:1px solid var(--y30);border-radius:3px;" data-i18n="s7_open_drive">OPEN IN DRIVE &#8599;</a>
         <button onclick="s5CloseVideo()" style="background:none;border:none;color:rgba(200,210,230,0.6);font-size:20px;cursor:pointer;padding:0 4px;">&#x2715;</button>
       </div>
     </div>
     <div style="position:relative;padding-bottom:56.25%;height:0;background:#080a0e;">
       <div id="s5PlayScreen" onclick="s5PlayVideo()" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:2;cursor:pointer;background:linear-gradient(135deg,#0d1018,#141820);">
-        <div style="width:170px;height:170px;border-radius:50%;background:rgba(230,255,0,0.1);border:2px solid rgba(230,255,0,0.6);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(230,255,0,0.2);">
+        <div style="width:170px;height:170px;border-radius:50%;background:var(--y10);border:2px solid var(--y60);display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px var(--y20);">
           <svg width="30" height="30" viewBox="0 0 30 30"><polygon points="11,6 26,15 11,24" fill="#E6FF00"/></svg>
         </div>
         <div style="text-align:center;">
-          <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.18em;color:rgba(230,255,0,0.85);margin-bottom:6px;" data-i18n="s7_click_play">CLICK TO PLAY</div>
+          <div style="font-family:var(--font-mono);font-size:13px;letter-spacing:0.18em;color:var(--y85);margin-bottom:6px;" data-i18n="s7_click_play">CLICK TO PLAY</div>
           <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;color:rgba(232,234,240,0.3);" data-i18n="s7_or_drive">or use OPEN IN DRIVE above</div>
         </div>
       </div>
@@ -1096,19 +1112,19 @@
         <div class="uc-title" data-i18n="s6_uc1_title">Complex Distribution Curve</div>
         <p style="margin-bottom:8px;color:var(--muted);font-size:clamp(12px,1.3vh,15px);" data-i18n="s6_uc1_desc">Custom distribution logic in plain language → deterministic code.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px;margin-bottom:10px;">
-          <div style="text-align:center;background:rgba(230,255,0,0.06);border:1px solid rgba(230,255,0,0.18);border-radius:4px;padding:6px 4px;">
+          <div style="text-align:center;background:var(--y06);border:1px solid var(--y18);border-radius:4px;padding:6px 4px;">
             <div style="font-family:var(--font-mono);font-size:clamp(10px,1.1vh,13px);color:var(--yellow);font-weight:700;">Peak 2nd</div>
             <div style="font-family:var(--font-mono);font-size:clamp(14px,1.7vh,20px);color:var(--text);font-weight:700;">6%</div>
           </div>
-          <div style="text-align:center;background:rgba(230,255,0,0.06);border:1px solid rgba(230,255,0,0.18);border-radius:4px;padding:6px 4px;">
+          <div style="text-align:center;background:var(--y06);border:1px solid var(--y18);border-radius:4px;padding:6px 4px;">
             <div style="font-family:var(--font-mono);font-size:clamp(10px,1.1vh,13px);color:var(--yellow);font-weight:700;">Peak 17th</div>
             <div style="font-family:var(--font-mono);font-size:clamp(14px,1.7vh,20px);color:var(--text);font-weight:700;">17%</div>
           </div>
-          <div style="text-align:center;background:rgba(230,255,0,0.06);border:1px solid rgba(230,255,0,0.18);border-radius:4px;padding:6px 4px;">
+          <div style="text-align:center;background:var(--y06);border:1px solid var(--y18);border-radius:4px;padding:6px 4px;">
             <div style="font-family:var(--font-mono);font-size:clamp(10px,1.1vh,13px);color:var(--yellow);font-weight:700;">Peak 26th</div>
             <div style="font-family:var(--font-mono);font-size:clamp(14px,1.7vh,20px);color:var(--text);font-weight:700;">11%</div>
           </div>
-          <div style="text-align:center;background:rgba(230,255,0,0.1);border:1px solid rgba(230,255,0,0.35);border-radius:4px;padding:6px 4px;">
+          <div style="text-align:center;background:var(--y10);border:1px solid var(--y35);border-radius:4px;padding:6px 4px;">
             <div style="font-family:var(--font-mono);font-size:clamp(10px,1.1vh,13px);color:var(--yellow);font-weight:700;">Peak EOM</div>
             <div style="font-family:var(--font-mono);font-size:clamp(14px,1.7vh,20px);color:var(--text);font-weight:700;">64%</div>
           </div>
@@ -1171,24 +1187,24 @@
       style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;
              width:min(720px,84vw);aspect-ratio:16/9;max-height:55vh;
              background:linear-gradient(135deg,#0d1018 0%,#141820 60%,#0d1018 100%);
-             border:1px solid rgba(230,255,0,0.3);border-radius:14px;
+             border:1px solid var(--y30);border-radius:14px;
              text-decoration:none;cursor:pointer;
-             box-shadow:0 0 60px rgba(230,255,0,0.05);
+             box-shadow:0 0 60px var(--y05);
              transition:border-color 0.25s,box-shadow 0.25s;"
-      onmouseover="this.style.borderColor='rgba(230,255,0,0.7)';this.style.boxShadow='0 0 80px rgba(230,255,0,0.15)'"
-      onmouseout="this.style.borderColor='rgba(230,255,0,0.3)';this.style.boxShadow='0 0 60px rgba(230,255,0,0.05)'">
+      onmouseover="this.style.borderColor='var(--y70)';this.style.boxShadow='0 0 80px var(--y15)'"
+      onmouseout="this.style.borderColor='var(--y30)';this.style.boxShadow='0 0 60px var(--y05)'">
 
       <!-- Animated play button -->
       <div id="s7PlayBtn" style="width:180px;height:180px;border-radius:50%;
-           background:rgba(230,255,0,0.08);border:2px solid rgba(230,255,0,0.6);
+           background:var(--y08);border:2px solid var(--y60);
            display:flex;align-items:center;justify-content:center;
-           box-shadow:0 0 0 0 rgba(230,255,0,0.3);
+           box-shadow:0 0 0 0 var(--y30);
            animation:playPulse 2.4s ease-in-out infinite;">
         <svg width="36" height="36" viewBox="0 0 36 36"><polygon points="14,8 32,18 14,28" fill="#E6FF00"/></svg>
       </div>
 
       <div style="text-align:center;">
-        <div style="font-family:var(--font-mono);font-size:clamp(13px,1.8vh,18px);letter-spacing:0.2em;color:rgba(230,255,0,0.9);margin-bottom:8px;" data-i18n="s7_watch_label">WATCH THE DEMO</div>
+        <div style="font-family:var(--font-mono);font-size:clamp(13px,1.8vh,18px);letter-spacing:0.2em;color:var(--y90);margin-bottom:8px;" data-i18n="s7_watch_label">WATCH THE DEMO</div>
         <div style="font-family:var(--font-mono);font-size:clamp(10px,1.2vh,13px);letter-spacing:0.1em;color:rgba(232,234,240,0.3);" data-i18n="s7_drive_sub">Opens in Google Drive · TAI Prototype Recording</div>
       </div>
     </a>
@@ -1224,7 +1240,7 @@
       </div>
       <div class="alp-row" style="justify-content:center;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
-          <span style="color:var(--yellow);font-size:clamp(20px,2.5vh,28px);text-shadow:0 0 12px rgba(230,255,0,0.6);animation:arrowDown 1.6s ease-in-out infinite;display:inline-block;">↓</span>
+          <span style="color:var(--yellow);font-size:clamp(20px,2.5vh,28px);text-shadow:0 0 12px var(--y60);animation:arrowDown 1.6s ease-in-out infinite;display:inline-block;">↓</span>
           <span style="font-family:var(--font-mono);font-size:clamp(11px,1.2vh,14px);color:var(--muted);" data-i18n="s8_orchestrates_v">orchestrates</span>
         </div>
       </div>
@@ -1290,7 +1306,7 @@
       <div style="font-family:var(--font-mono);font-size:clamp(9px,1vh,11px);letter-spacing:0.16em;color:var(--muted);text-align:center;margin-bottom:8px;" data-i18n="s8_approach">FORECAST APPROACH SELECTION</div>
       <div style="position:relative;height:36px;" id="fBar">
         <!-- Track -->
-        <div style="position:absolute;top:50%;left:0;right:0;height:6px;transform:translateY(-50%);border-radius:3px;background:linear-gradient(90deg,var(--magenta) 0%,rgba(230,0,126,0.5) 20%,rgba(0,190,180,0.7) 37%,rgba(230,180,0,0.8) 55%,rgba(230,255,0,0.4) 72%,rgba(232,234,240,0.2) 100%);"></div>
+        <div style="position:absolute;top:50%;left:0;right:0;height:6px;transform:translateY(-50%);border-radius:3px;background:linear-gradient(90deg,var(--magenta) 0%,rgba(230,0,126,0.5) 20%,rgba(0,190,180,0.7) 37%,rgba(230,180,0,0.8) 55%,var(--y40) 72%,rgba(232,234,240,0.2) 100%);"></div>
         <!-- Node labels above -->
         <div style="position:absolute;top:0;left:15%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">CashAI<br><span style="color:var(--magenta);">Prophet</span></div>
         <div style="position:absolute;top:0;left:38%;transform:translateX(-50%);font-family:var(--font-mono);font-size:clamp(8px,0.9vh,10px);color:var(--muted);text-align:center;white-space:nowrap;pointer-events:none;">Invoice AI<br><span style="color:rgba(0,190,180,0.9);">Receivables</span></div>
@@ -1302,7 +1318,7 @@
         <div style="position:absolute;top:50%;left:62%;width:10px;height:10px;border-radius:50%;background:rgba(230,180,0,0.9);transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(230,180,0,0.5);pointer-events:none;"></div>
         <div style="position:absolute;top:50%;left:85%;width:10px;height:10px;border-radius:50%;background:var(--dark3);border:1px solid rgba(232,234,240,0.4);transform:translate(-50%,-50%);pointer-events:none;"></div>
         <!-- Draggable cursor -->
-        <div id="fCursor" style="position:absolute;top:50%;left:15%;width:22px;height:22px;border-radius:50%;background:white;border:3px solid var(--yellow);transform:translate(-50%,-50%);cursor:grab;z-index:10;box-shadow:0 0 14px rgba(230,255,0,0.7);transition:box-shadow 0.2s;"></div>
+        <div id="fCursor" style="position:absolute;top:50%;left:15%;width:22px;height:22px;border-radius:50%;background:white;border:3px solid var(--yellow);transform:translate(-50%,-50%);cursor:grab;z-index:10;box-shadow:0 0 14px var(--y70);transition:box-shadow 0.2s;"></div>
       </div>
       <!-- Axis labels -->
       <div style="display:flex;justify-content:space-between;margin-top:2px;padding:0 2px;">
@@ -1333,11 +1349,11 @@
 
     <!-- Flow diagram with Human-in-the-Loop -->
     <div class="s9-flow" style="display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,28px);margin:clamp(4px,1vh,16px) 0;">
-      <div style="background:var(--dark3);border:1px solid rgba(230,255,0,0.3);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(18px,2vw,32px);">
+      <div style="background:var(--dark3);border:1px solid var(--y30);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(18px,2vw,32px);">
         <div style="font-family:var(--font-mono);font-size:clamp(16px,2.2vh,24px);color:var(--muted);" data-i18n="s9_loop_user">User Query</div>
       </div>
       <span style="color:var(--yellow);font-size:clamp(28px,4.5vh,46px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
-      <div style="background:rgba(230,255,0,0.04);border:2.5px solid rgba(230,255,0,0.5);border-radius:16px;padding:clamp(14px,2vh,26px) clamp(24px,3.5vw,48px);text-align:center;box-shadow:0 0 50px rgba(230,255,0,0.08);">
+      <div style="background:var(--y04);border:2.5px solid var(--y50);border-radius:16px;padding:clamp(14px,2vh,26px) clamp(24px,3.5vw,48px);text-align:center;box-shadow:0 0 50px var(--y08);">
         <div style="font-family:var(--font-mono);font-size:clamp(11px,1.4vh,15px);letter-spacing:0.18em;color:var(--magenta);" data-i18n="s9_hub_tag">AGENTIC ORCHESTRATOR</div>
         <div style="font-family:var(--font-mono);font-size:clamp(40px,6.5vh,66px);font-weight:700;color:var(--yellow);" class="ai-glow">TAI</div>
       </div>
@@ -1355,7 +1371,7 @@
 
     <!-- Loop pills with chase animation -->
     <div class="s9-pills" style="display:flex;align-items:center;justify-content:center;gap:clamp(5px,0.8vw,12px);font-family:var(--font-mono);font-size:clamp(14px,1.8vh,20px);">
-      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:6px 16px;">Plan</span>
+      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:var(--y08);border:1px solid var(--y25);border-radius:5px;padding:6px 16px;">Plan</span>
       <span style="color:var(--muted);">→</span>
       <span class="s9-pill" style="color:var(--magenta);font-weight:700;background:rgba(230,0,126,0.08);border:1px solid rgba(230,0,126,0.25);border-radius:5px;padding:6px 16px;">Act</span>
       <span style="color:var(--muted);">→</span>
@@ -1363,7 +1379,7 @@
       <span style="color:var(--muted);">→</span>
       <span class="s9-pill" style="color:rgba(0,190,180,0.9);font-weight:700;background:rgba(0,190,180,0.08);border:1px solid rgba(0,190,180,0.25);border-radius:5px;padding:6px 16px;">Refine</span>
       <span style="color:var(--muted);">→</span>
-      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:6px 16px;">Answer</span>
+      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:var(--y08);border:1px solid var(--y25);border-radius:5px;padding:6px 16px;">Answer</span>
       <span style="color:var(--muted);">→</span>
       <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(26,58,107,0.08);border:1px solid currentColor;border-radius:5px;padding:6px 16px;">✓ Validate</span>
       <span style="color:var(--muted);font-size:clamp(12px,1.5vh,16px);margin-left:6px;" data-i18n="s9_loop_repeat">↻ loops until complete</span>
@@ -1374,7 +1390,7 @@
 
       <!-- COL 1: MCP Tools -->
       <div style="flex:1;display:flex;flex-direction:column;gap:clamp(6px,0.8vh,10px);">
-        <div style="background:var(--dark3);border:1px solid rgba(230,255,0,0.2);border-radius:8px;padding:clamp(10px,1.3vh,16px) clamp(12px,1.2vw,18px);flex:1;">
+        <div style="background:var(--dark3);border:1px solid var(--y20);border-radius:8px;padding:clamp(10px,1.3vh,16px) clamp(12px,1.2vw,18px);flex:1;">
           <div style="font-family:var(--font-mono);font-size:clamp(11px,1.3vh,14px);letter-spacing:0.14em;color:var(--yellow);margin-bottom:8px;" data-i18n="s9_tools_label">TOOLS · MCP</div>
           <div style="font-family:var(--font-mono);font-size:clamp(14px,1.7vh,18px);color:var(--text);margin-bottom:4px;">Kyriba APIs</div>
           <div style="font-size:clamp(12px,1.4vh,15px);color:var(--muted);line-height:1.6;" data-i18n="s9_tools_kyriba">Cash positions · Balances · Forecasts · Payments</div>
@@ -1441,7 +1457,7 @@
     </div>
 
     <!-- Inline video player -->
-    <div style="position:relative;width:min(820px,88vw);max-height:58vh;border:1px solid rgba(230,255,0,0.3);border-radius:14px;overflow:hidden;box-shadow:0 0 60px rgba(230,255,0,0.05);background:#080a0e;">
+    <div style="position:relative;width:min(820px,88vw);max-height:58vh;border:1px solid var(--y30);border-radius:14px;overflow:hidden;box-shadow:0 0 60px var(--y05);background:#080a0e;">
       <video id="s10Video" controls preload="metadata" style="width:100%;display:block;border-radius:14px;" poster="">
         <source src="img/MoneyMarketFlow.mp4" type="video/mp4">
       </video>
@@ -1467,6 +1483,8 @@
 </div>
 
 <script>
+  // Theme-aware yellow for canvas drawing
+  function yc(a) { return document.body.classList.contains('light') ? 'rgba(26,58,107,'+a+')' : yc(a); }
   window._i18nRefreshers = [];
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
@@ -1570,7 +1588,7 @@
         [-90,-70,-50,-30,-10,0].forEach(v=>{
           if(v<minV||v>maxV)return;
           const y=yp(v);
-          ctx.strokeStyle=v===0?'rgba(230,255,0,0.12)':'rgba(230,255,0,0.05)';
+          ctx.strokeStyle=v===0?'var(--y10)':'var(--y05)';
           ctx.lineWidth=v===0?1.5:1; ctx.setLineDash(v===0?[4,3]:[]);
           ctx.beginPath();ctx.moveTo(P.left,y);ctx.lineTo(W-P.right,y);ctx.stroke();
           ctx.setLineDash([]);ctx.fillStyle='rgba(200,210,230,0.60)';
@@ -1581,9 +1599,9 @@
           ctx.fillText(i<nA?'W'+(i+1):'W+'+(i-nA+2), xp(i), H-6);
         });
         const divX=xp(nA-1);
-        ctx.strokeStyle='rgba(230,255,0,0.55)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
+        ctx.strokeStyle='var(--y60)';ctx.lineWidth=1;ctx.setLineDash([4,3]);
         ctx.beginPath();ctx.moveTo(divX,P.top);ctx.lineTo(divX,H-P.bottom);ctx.stroke();
-        ctx.setLineDash([]);ctx.fillStyle='rgba(230,255,0,0.8)';ctx.font='9px Space Mono,monospace';ctx.textAlign='center';ctx.fillText('Prophet ▶',divX+34,P.top+11);
+        ctx.setLineDash([]);ctx.fillStyle='var(--y80)';ctx.font='9px Space Mono,monospace';ctx.textAlign='center';ctx.fillText('Prophet ▶',divX+34,P.top+11);
         const pts=Math.max(1,Math.floor(prog*nF));
         if(pts>0){
           ctx.strokeStyle='#E6FF00';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.setLineDash([6,4]);
@@ -1592,7 +1610,7 @@
           ctx.stroke();ctx.setLineDash([]);
           const tx2=xp(nA-1+pts-1),ty2=yp(forecast[pts-1]);
           const grd=ctx.createRadialGradient(tx2,ty2,1,tx2,ty2,10);
-          grd.addColorStop(0,'rgba(230,255,0,1)');grd.addColorStop(1,'rgba(230,255,0,0)');
+          grd.addColorStop(0,'var(--y90)');grd.addColorStop(1,'var(--y03)');
           ctx.fillStyle=grd;ctx.beginPath();ctx.arc(tx2,ty2,10,0,Math.PI*2);ctx.fill();
           ctx.fillStyle='#E6FF00';ctx.beginPath();ctx.arc(tx2,ty2,3,0,Math.PI*2);ctx.fill();
         }
@@ -1792,7 +1810,7 @@
     }
     if (realEnd > 1) {
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(230,255,0,0.5)';
+      ctx.strokeStyle = 'var(--y50)';
       ctx.lineWidth = 2; ctx.setLineDash([5,4]);
       for (let i=0;i<=realEnd;i++) { const x=pL+(i/realPts)*cW; i===0?ctx.moveTo(x,realY(i)):ctx.lineTo(x,realY(i)); }
       ctx.stroke(); ctx.setLineDash([]);
@@ -1827,7 +1845,7 @@
     }
     // Legend
     ctx.font = '600 '+Math.max(10,w*0.024)+'px Space Mono,monospace'; ctx.textAlign='left';
-    ctx.fillStyle = 'rgba(230,255,0,0.6)'; ctx.fillText('╌ Reality', pL, pT-6);
+    ctx.fillStyle = 'var(--y60)'; ctx.fillText('╌ Reality', pL, pT-6);
     ctx.fillStyle = 'rgba(230,0,126,0.7)'; ctx.fillText('━ Prophet output', pL+w*0.32, pT-6);
   }
 
@@ -1860,13 +1878,13 @@
       const startX = pxLerp(w*0.04, cx-boxW/2-4, aT);
       const aY = cy - boxH*0.3 + i*(boxH*0.6/(arrowCount-1));
       const alpha = aT < 0.1 ? aT*10 : aT > 0.85 ? (1-aT)/0.15 : 1;
-      ctx.strokeStyle = 'rgba(230,255,0,'+(0.5*alpha).toFixed(2)+')';
+      ctx.strokeStyle = yc((0.5*alpha).toFixed(2));
       ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(startX-18, aY); ctx.lineTo(startX, aY);
       ctx.lineTo(startX-5, aY-4); ctx.moveTo(startX, aY); ctx.lineTo(startX-5, aY+4);
       ctx.stroke();
       // data pill
-      ctx.fillStyle = 'rgba(230,255,0,'+(0.3*alpha).toFixed(2)+')';
+      ctx.fillStyle = yc((0.3*alpha).toFixed(2));
       ctx.font = '600 '+Math.max(9,w*0.02)+'px Space Mono,monospace';
       ctx.textAlign = 'right';
       const labels = ['actuals','rules','drivers','context'];
@@ -1940,8 +1958,8 @@
     if (t > 1.5) {
       const cA = Math.min((t-1.5)/0.8, 1);
       // bubble
-      ctx.fillStyle = 'rgba(230,255,0,'+(0.06*cA).toFixed(3)+')';
-      ctx.strokeStyle = 'rgba(230,255,0,'+(0.35*cA).toFixed(3)+')';
+      ctx.fillStyle = yc((0.06*cA).toFixed(3));
+      ctx.strokeStyle = yc((0.35*cA).toFixed(3));
       ctx.lineWidth = 1.5;
       const bW = colW, bH = h*0.28, bY = h*0.3;
       ctx.beginPath(); ctx.roundRect(rx, bY, bW, bH, 8); ctx.fill(); ctx.stroke();
@@ -1949,7 +1967,7 @@
       const msg = '"Forecast payroll with Monday double-weight, shift to next biz day"';
       const chars = Math.floor(Math.min((t-1.8)/0.04, msg.length));
       if (chars > 0) {
-        ctx.fillStyle = 'rgba(230,255,0,'+(0.7*cA).toFixed(2)+')';
+        ctx.fillStyle = yc((0.7*cA).toFixed(2));
         ctx.font = '600 '+Math.max(11,w*0.022)+'px Space Mono,monospace';
         ctx.textAlign = 'left';
         const lines = wrapText(ctx, msg.substring(0,chars), bW-20);
@@ -1958,7 +1976,7 @@
       // cursor blink
       if (chars < msg.length) {
         const blink = Math.sin(t*8) > 0;
-        if (blink) { ctx.fillStyle='rgba(230,255,0,'+(0.8*cA).toFixed(2)+')'; ctx.fillRect(rx+10+ctx.measureText(msg.substring(0,chars).split('\n').pop()||'').width, bY+22+(Math.max(0,wrapText(ctx,msg.substring(0,chars),bW-20).length-1))*18-10, 2, 14); }
+        if (blink) { ctx.fillStyle=yc((0.8*cA).toFixed(2)); ctx.fillRect(rx+10+ctx.measureText(msg.substring(0,chars).split('\n').pop()||'').width, bY+22+(Math.max(0,wrapText(ctx,msg.substring(0,chars),bW-20).length-1))*18-10, 2, 14); }
       }
       // "vs" label
       ctx.fillStyle = 'rgba(232,234,240,'+(0.3*cA).toFixed(2)+')';
@@ -2018,7 +2036,7 @@
       const drawEnd = Math.floor(pts * rAlpha);
       if (drawEnd > 1) {
         ctx.beginPath();
-        ctx.strokeStyle = 'rgba(230,255,0,'+(0.5*rAlpha).toFixed(2)+')';
+        ctx.strokeStyle = yc((0.5*rAlpha).toFixed(2));
         ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
         for (let i=0;i<=drawEnd;i++) {
           const x = pL+(i/pts)*cW, y = oy+dataY(r,i);
@@ -2102,8 +2120,8 @@
       // Chat bubble
       const bx=w*0.06, by=h*0.04, bw=w*0.88, bh=h*0.48, br=6;
       const bA = Math.min(t/0.6, 1);
-      ctx.fillStyle='rgba(230,255,0,'+(0.04*bA).toFixed(3)+')';
-      ctx.strokeStyle='rgba(230,255,0,'+(0.3*bA).toFixed(3)+')';
+      ctx.fillStyle=yc((0.04*bA).toFixed(3));
+      ctx.strokeStyle=yc((0.3*bA).toFixed(3));
       ctx.lineWidth=1.5;
       ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,br); ctx.fill(); ctx.stroke();
       // Typing text
@@ -2117,7 +2135,7 @@
       const fSize = Math.max(9, Math.min(w*0.055, h*0.055, 15));
       const lineH = fSize + 3;
       if (chars > 0) {
-        ctx.fillStyle='rgba(230,255,0,'+(0.8*bA).toFixed(2)+')';
+        ctx.fillStyle=yc((0.8*bA).toFixed(2));
         ctx.font='600 '+fSize+'px Space Mono,monospace';
         ctx.textAlign='left';
         let ci=0;
@@ -2142,7 +2160,7 @@
       // Arrow down
       if(t>1.5) {
         const aA=Math.min((t-1.5)/0.5,0.6)*(0.5+0.5*Math.sin(t*3));
-        ctx.fillStyle='rgba(230,255,0,'+aA.toFixed(2)+')';
+        ctx.fillStyle=yc(aA.toFixed(2));
         ctx.font='700 '+Math.max(12,h*0.06)+'px sans-serif';
         ctx.textAlign='center'; ctx.fillText('↓', w/2, h*0.82);
       }
@@ -2155,17 +2173,17 @@
       // Central hub
       const hubR = r*0.32;
       ctx.beginPath(); ctx.arc(cx,cy,hubR,0,Math.PI*2);
-      ctx.fillStyle='rgba(230,255,0,0.06)';
-      ctx.strokeStyle='rgba(230,255,0,0.5)';
+      ctx.fillStyle='var(--y06)';
+      ctx.strokeStyle='var(--y50)';
       ctx.lineWidth=1.5; ctx.fill(); ctx.stroke();
-      ctx.fillStyle='rgba(230,255,0,0.8)';
+      ctx.fillStyle='var(--y80)';
       ctx.font='700 '+Math.max(9,hubR*0.5)+'px Space Mono,monospace';
       ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText('TAI', cx, cy);
 
       // Orbiting nodes
       const caps=['CoT','Rank','Retry','Cache','Route'];
-      const colors=['rgba(230,0,126,','rgba(230,255,0,','rgba(80,160,255,','rgba(230,0,126,','rgba(230,255,0,'];
+      const colors=[document.body.classList.contains('light')?'rgba(230,0,126,':'rgba(230,0,126,',document.body.classList.contains('light')?'rgba(26,58,107,':'rgba(230,255,0,',document.body.classList.contains('light')?'rgba(26,58,107,':'rgba(80,160,255,',document.body.classList.contains('light')?'rgba(230,0,126,':'rgba(230,0,126,',document.body.classList.contains('light')?'rgba(26,58,107,':'rgba(230,255,0,'];
       caps.forEach((cap, i) => {
         const angle = (i/caps.length)*Math.PI*2 + t*0.6;
         const nx = cx + Math.cos(angle)*r;
@@ -2189,7 +2207,7 @@
       // Pulsing ring
       const pulse = 0.3+0.2*Math.sin(t*2.5);
       ctx.beginPath(); ctx.arc(cx,cy,r+6,0,Math.PI*2);
-      ctx.strokeStyle='rgba(230,255,0,'+pulse.toFixed(2)+')';
+      ctx.strokeStyle=yc(pulse.toFixed(2));
       ctx.lineWidth=1; ctx.setLineDash([6,10]);
       ctx.stroke(); ctx.setLineDash([]);
 
@@ -2198,7 +2216,7 @@
         const sA = (t*1.2+i*2.1)%(Math.PI*2);
         const sr = hubR+6+((t*40+i*30)%((r-hubR)*0.6));
         const sx = cx+Math.cos(sA)*sr, sy=cy+Math.sin(sA)*sr*0.65;
-        ctx.fillStyle='rgba(230,255,0,'+(0.3+0.3*Math.sin(t*5+i*2)).toFixed(2)+')';
+        ctx.fillStyle=yc((0.3+0.3*Math.sin(t*5+i*2)).toFixed(2));
         ctx.beginPath(); ctx.arc(sx,sy,1.5,0,Math.PI*2); ctx.fill();
       }
 
@@ -2217,7 +2235,7 @@
       const wx=w*0.04, wy=h*0.03, ww=w*0.92, wh=h*0.52, wr=5;
       const cA = Math.min(t/0.5, 1);
       ctx.fillStyle='rgba(8,10,14,'+(0.8*cA).toFixed(2)+')';
-      ctx.strokeStyle='rgba(230,255,0,'+(0.25*cA).toFixed(2)+')';
+      ctx.strokeStyle=yc((0.25*cA).toFixed(2));
       ctx.lineWidth=1;
       ctx.beginPath(); ctx.roundRect(wx,wy,ww,wh,wr); ctx.fill(); ctx.stroke();
       // Dots
@@ -2228,13 +2246,13 @@
       // Code lines
       const codeLines = [
         {c:'rgba(230,0,126,0.6)', t:'def '},
-        {c:'rgba(230,255,0,0.8)', t:'distribute_payments'},
+        {c:'var(--y80)', t:'distribute_payments'},
         {c:'rgba(232,234,240,0.5)', t:'(df):'},
         {c:'rgba(232,234,240,0.35)', t:'  peaks={2:6,17:17,26:11}'},
         {c:'rgba(232,234,240,0.35)', t:'  eom=64 # remainder'},
         {c:'rgba(232,234,240,0.35)', t:'  df=shift_bday(df)'},
         {c:'rgba(80,160,255,0.5)',  t:'  return '},
-        {c:'rgba(230,255,0,0.6)',   t:'validate(df)'},
+        {c:'var(--y60)',   t:'validate(df)'},
       ];
       const lineH = fS + 3;
       const charSpeed = 0.025;
@@ -2334,7 +2352,7 @@
       const pad=14, dr=diag.getBoundingClientRect();
       const sx=dr.left-pad, sy=dr.top-pad, sw=dr.width+pad*2, sh=dr.height+pad*2;
       const sP=2*(sw+sh);
-      setR(sx,sy,sw,sh,12,0); rectEl.setAttribute('stroke','rgba(230,255,0,0.8)');
+      setR(sx,sy,sw,sh,12,0); rectEl.setAttribute('stroke','var(--y80)');
       // Phase 0: draw border around diagram
       let t0=null;
       animFrame=requestAnimationFrame(function drawF(ts){
@@ -2382,7 +2400,7 @@
         (function fr(ts){
           if(!t)t=ts;
           const p=Math.min((ts-t)/700,1);
-          r.setAttribute('stroke','rgba(230,255,0,'+(0.8*(1-p)).toFixed(3)+')');
+          r.setAttribute('stroke',yc((0.8*(1-p)).toFixed(3)));
           if(p<1) requestAnimationFrame(fr);
           else { const svg=document.getElementById('alpSvg'); if(svg) svg.style.display='none'; }
         })(performance.now());
@@ -2395,7 +2413,7 @@
       const r=document.getElementById('alpRect');
       if(svg) svg.style.display='none';
       if(advEl){advEl.textContent='';advEl.style.opacity='0';advEl.classList.remove('active');}
-      if(r){r.setAttribute('stroke','rgba(230,255,0,0)');r.setAttribute('stroke-dasharray','0 9999');r.setAttribute('width',0);r.setAttribute('height',0);}
+      if(r){r.setAttribute('stroke','var(--y03)');r.setAttribute('stroke-dasharray','0 9999');r.setAttribute('width',0);r.setAttribute('height',0);}
     }
     window.addEventListener('slideChange',e=>{
       if(e.detail===7){done=false;looping=false;alpTimer=setTimeout(startAlp,400);}
@@ -2544,9 +2562,9 @@
       const barW = CW / (days * 1.3);
       const gap = CW / days;
 
-      const colNormal  = 'rgba(230,255,0,0.25)';
+      const colNormal  = 'var(--y25)';
       const colPeak    = '#E6FF00';
-      const colPeakEOM = 'rgba(230,255,0,0.95)';
+      const colPeakEOM = 'var(--y90)';
       const colMonday  = 'rgba(230,0,126,0.6)';
 
       // Legend
@@ -2618,7 +2636,7 @@
           ctx.fillRect(x, y, barW, bh);
           // Percentage label on peak bars
           if (isPeak && ease > 0.7) {
-            ctx.fillStyle = isEOM ? '#E6FF00' : 'rgba(230,255,0,0.8)';
+            ctx.fillStyle = isEOM ? '#E6FF00' : 'var(--y80)';
             ctx.font = 'bold 11px Space Mono,monospace';
             ctx.textAlign = 'center';
             ctx.fillText(v + '%', x + barW / 2, y - 6);
@@ -2864,7 +2882,7 @@
       const baselineH = 0.5 * maxH;
       const blinkAlpha = 0.2 + 0.15 * Math.sin(progress * Math.PI * 4);
       ctx.setLineDash([4, 4]);
-      ctx.strokeStyle = 'rgba(230,255,0,' + blinkAlpha.toFixed(2) + ')';
+      ctx.strokeStyle = yc(blinkAlpha.toFixed(2));
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(startX - 10, baseY - baselineH);
@@ -2879,7 +2897,7 @@
         const bh = frac * maxH * ease;
         const x = startX + i * (barW + gap);
         const isMagenta = i < 3;
-        ctx.fillStyle = isMagenta ? 'rgba(230,0,126,0.6)' : 'rgba(230,255,0,0.55)';
+        ctx.fillStyle = isMagenta ? 'rgba(230,0,126,0.6)' : 'var(--y60)';
         ctx.beginPath();
         ctx.rect(x, baseY - bh, barW, bh);
         ctx.fill();
@@ -2890,7 +2908,7 @@
       ctx.fillStyle = 'rgba(230,0,126,0.5)';
       ctx.textAlign = 'center';
       ctx.fillText('AI', startX + 1 * (barW + gap) + barW / 2, baseY + 13);
-      ctx.fillStyle = 'rgba(230,255,0,0.5)';
+      ctx.fillStyle = 'var(--y50)';
       ctx.fillText('Default', startX + 5 * (barW + gap) + barW / 2, baseY + 13);
     }
 
@@ -2925,7 +2943,7 @@
       if (expandProgress > 0) {
         ctx.beginPath();
         ctx.setLineDash([6, 4]);
-        ctx.strokeStyle = 'rgba(230,255,0,0.7)';
+        ctx.strokeStyle = 'var(--y70)';
         ctx.lineWidth = 2.5;
         const startI = Math.floor(pts * solidEnd);
         for (let i = startI; i <= pts * drawTo; i++) {
@@ -2940,7 +2958,7 @@
         // Confidence band
         if (expandProgress > 0.1) {
           const bandAlpha = Math.min(expandProgress * 0.3, 0.12);
-          ctx.fillStyle = 'rgba(230,255,0,' + bandAlpha.toFixed(3) + ')';
+          ctx.fillStyle = yc(bandAlpha.toFixed(3));
           ctx.beginPath();
           for (let i = startI; i <= pts * drawTo; i++) {
             const t = i / pts;
@@ -2967,7 +2985,7 @@
       ctx.fillStyle = 'rgba(230,0,126,0.45)';
       ctx.fillText('W1–7', padL + solidEnd * 0.5 * (w - padL - padR), h * 0.92);
       if (expandProgress > 0.5) {
-        ctx.fillStyle = 'rgba(230,255,0,' + (Math.min((expandProgress - 0.5) * 2, 0.5)).toFixed(2) + ')';
+        ctx.fillStyle = yc((Math.min((expandProgress - 0.5) * 2, 0.5)).toFixed(2));
         ctx.fillText('W8–13', padL + (solidEnd + (1 - solidEnd) * 0.5) * (w - padL - padR), h * 0.92);
       }
 
@@ -3037,11 +3055,11 @@
         ctx.lineTo(aiPts[aiPts.length - 1].x, baseY);
         ctx.lineTo(aiPts[0].x, baseY);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(230,255,0,0.06)';
+        ctx.fillStyle = 'var(--y06)';
         ctx.fill();
         ctx.beginPath();
         aiPts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-        ctx.strokeStyle = 'rgba(230,255,0,0.7)';
+        ctx.strokeStyle = 'var(--y70)';
         ctx.lineWidth = 2;
         ctx.setLineDash([5, 3]);
         ctx.stroke();
@@ -3054,7 +3072,7 @@
       ctx.fillStyle = 'rgba(230,0,126,0.5)';
       ctx.textAlign = 'left';
       ctx.fillText('━ Entity', padL, legY);
-      ctx.fillStyle = 'rgba(230,255,0,0.5)';
+      ctx.fillStyle = 'var(--y50)';
       ctx.fillText('╌ AI', w * 0.5, legY);
     }
 
@@ -3262,7 +3280,7 @@
         const dp = Math.max(0, Math.min((p - 0.45 - i * 0.03) / 0.35, 1));
         const easeD = dp < 0 ? 0 : 1 - Math.pow(1 - dp, 3);
         const dH = d.def * maxH * easeD;
-        ctx.fillStyle = 'rgba(230,255,0,0.45)';
+        ctx.fillStyle = 'var(--y45)';
         ctx.fillRect(gx + 2 * (barW + gap), baseY - dH, barW, dH);
 
         // Labels
@@ -3279,7 +3297,7 @@
       ctx.fillStyle = 'rgba(230,0,126,0.7)';
       ctx.fillRect(padL, legY - 5, 12, 3);
       ctx.fillText('AI Generated', padL + 18, legY);
-      ctx.fillStyle = 'rgba(230,255,0,0.6)';
+      ctx.fillStyle = 'var(--y60)';
       ctx.fillRect(padL + w * 0.35, legY - 5, 12, 3);
       ctx.fillText('Default', padL + w * 0.35 + 18, legY);
 
@@ -3386,13 +3404,13 @@
           ctx.lineTo(x, yAt(t) + spread);
         }
         ctx.closePath();
-        ctx.fillStyle = 'rgba(230,255,0,' + bandAlpha.toFixed(3) + ')';
+        ctx.fillStyle = yc(bandAlpha.toFixed(3));
         ctx.fill();
 
         // Dashed line
         ctx.beginPath();
         ctx.setLineDash([8, 5]);
-        ctx.strokeStyle = 'rgba(230,255,0,0.8)';
+        ctx.strokeStyle = 'var(--y80)';
         ctx.lineWidth = 3;
         for (let i = startI; i <= endI; i++) {
           const t = i / pts;
@@ -3407,7 +3425,7 @@
           const labelAlpha = Math.min((expandP - 0.4) * 2, 0.5);
           ctx.font = '700 ' + Math.max(10, w * 0.026) + 'px "Space Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillStyle = 'rgba(230,255,0,' + labelAlpha.toFixed(2) + ')';
+          ctx.fillStyle = yc(labelAlpha.toFixed(2));
           ctx.fillText('W8 – W13', divX + (1 - splitAt) * 0.5 * chartW, padT + chartH + 18);
         }
 
@@ -3417,11 +3435,11 @@
         const pulse = 0.6 + 0.4 * Math.sin(p * Math.PI * 6);
         ctx.beginPath();
         ctx.arc(tipX, tipY, 5, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(230,255,0,' + (pulse * 0.9).toFixed(2) + ')';
+        ctx.fillStyle = yc((pulse * 0.9).toFixed(2));
         ctx.fill();
         ctx.beginPath();
         ctx.arc(tipX, tipY, 10 * pulse, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(230,255,0,' + (pulse * 0.3).toFixed(2) + ')';
+        ctx.strokeStyle = yc((pulse * 0.3).toFixed(2));
         ctx.lineWidth = 1.5;
         ctx.stroke();
       }
@@ -3472,7 +3490,7 @@
       const aEnd = Math.floor(pts * aP);
       if (aEnd > 0) {
         ctx.beginPath();
-        ctx.strokeStyle = 'rgba(230,255,0,0.8)';
+        ctx.strokeStyle = 'var(--y80)';
         ctx.lineWidth = 2.5;
         ctx.setLineDash([6, 4]);
         for (let i = 0; i <= aEnd; i++) {
@@ -3501,7 +3519,7 @@
           ctx.lineTo(x, aiY(t));
         }
         ctx.closePath();
-        ctx.fillStyle = 'rgba(230,255,0,0.06)';
+        ctx.fillStyle = 'var(--y06)';
         ctx.fill();
 
         // Variance markers at key divergence points
@@ -3514,7 +3532,7 @@
           if (markerP <= 0) return;
 
           // Vertical line between points
-          ctx.strokeStyle = 'rgba(230,255,0,' + (markerP * 0.5).toFixed(2) + ')';
+          ctx.strokeStyle = yc((markerP * 0.5).toFixed(2));
           ctx.lineWidth = 1;
           ctx.setLineDash([3, 3]);
           ctx.beginPath(); ctx.moveTo(mx, ey); ctx.lineTo(mx, ay); ctx.stroke();
@@ -3525,7 +3543,7 @@
           const midLabelY = (ey + ay) / 2;
           ctx.font = '700 ' + Math.max(10, w * 0.024) + 'px "Space Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillStyle = 'rgba(230,255,0,' + (markerP * 0.7).toFixed(2) + ')';
+          ctx.fillStyle = yc((markerP * 0.7).toFixed(2));
           ctx.fillText((ey > ay ? '+' : '-') + variance + '%', mx, midLabelY - 6);
         });
       }
@@ -3536,7 +3554,7 @@
       ctx.textAlign = 'left';
       ctx.fillStyle = 'rgba(230,0,126,0.7)';
       ctx.fillText('━ Entity', padL, legY);
-      ctx.fillStyle = 'rgba(230,255,0,0.7)';
+      ctx.fillStyle = 'var(--y70)';
       ctx.fillText('╌ AI Forecast', padL + w * 0.3, legY);
     }
 
@@ -3572,7 +3590,7 @@
   })();
 </script>
 <svg id="alpSvg" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:50;overflow:visible;display:none;">
-  <rect id="alpRect" x="0" y="0" width="10" height="10" rx="12" fill="none" stroke="rgba(230,255,0,0.8)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0 9999"/>
+  <rect id="alpRect" x="0" y="0" width="10" height="10" rx="12" fill="none" stroke="var(--y80)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0 9999"/>
 </svg>
 
 <script>
