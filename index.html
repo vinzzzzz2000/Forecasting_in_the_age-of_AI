@@ -151,6 +151,7 @@
   .author-role { font-family: var(--font-mono); font-size: clamp(11px,1.2vh,14px); color: var(--muted); margin-top: 2px; }
   .title-deco { position: absolute; right: 52px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; opacity: 0.18; }
   .title-deco span { font-family: var(--font-mono); font-size: clamp(10px,1.1vh,13px); color: var(--yellow); text-align: right; }
+.title-main.fr-title { font-size: clamp(30px,4.2vw,60px) !important; }
 
 
   /* ── SLIDE 2: USE CASE TILES ── */
@@ -1281,6 +1282,7 @@
 </div>
 
 <script>
+  window._i18nRefreshers = [];
   const slides = document.querySelectorAll('.slide');
   const total = slides.length;
   let cur = 0;
@@ -1451,8 +1453,9 @@
     ]
   };
   const limDrawFns = [drawLimFlat, drawLimBlackBox, drawLimNoNL, drawLimSingleModel];
-  function getLimDetails() { return limDetailsI18n[currentLang || 'en'].map((d,i) => ({...d, drawFn: limDrawFns[i]})); }
+  function getLimDetails() { return limDetailsI18n[window.currentLang || 'en'].map((d,i) => ({...d, drawFn: limDrawFns[i]})); }
   let limDetails = getLimDetails();
+  window._i18nRefreshers.push(() => { limDetails = getLimDetails(); });
 
   let limTypingTimer = null;
   let limCurrentIdx  = -1;
@@ -2240,8 +2243,9 @@
       ]
     };
     const ucChartFns = [drawDistributionChart, drawRainfallChart];
-    function getUcData() { return ucDataI18n[currentLang || 'en'].map((d,i) => ({...d, chartFn: ucChartFns[i]})); }
+    function getUcData() { return ucDataI18n[window.currentLang || 'en'].map((d,i) => ({...d, chartFn: ucChartFns[i]})); }
     let ucData = getUcData();
+    window._i18nRefreshers.push(() => { ucData = getUcData(); });
 
     let ucTypingTimer = null;
     let ucCurrentIdx = -1;
@@ -2926,8 +2930,9 @@
           points: ["Comparaison côte à côte : prévision entité vs. prévision IA","Met en évidence les écarts par catégorie, entité et période","Signale les tendances de sur- ou sous-prévision systématiques","Fournit un score de précision pondéré par la confiance par ligne"] }
       ]
     };
-    function getIucData() { return iucDataI18n[currentLang || 'en']; }
+    function getIucData() { return iucDataI18n[window.currentLang || 'en']; }
     let iucData = getIucData();
+    window._i18nRefreshers.push(() => { iucData = getIucData(); });
 
     let iucIdx = -1;
 
@@ -3651,7 +3656,7 @@ const TRANSLATIONS = {
   }
 };
 
-let currentLang = 'en'; // always default English
+window.currentLang = 'en'; // always default English — global for cross-script access
 
 // innerHTML keys — elements that contain span markup we must preserve
 const HTML_KEYS = new Set(['h2_s2_html','h2_s3_html','h2_s4_html','h2_s5_html','h2_s6_html','title_main_html','s3_desc_html','s4_lim2_body_html','s5_title1_html','s5_title2_html','s5_title3_html','s5_foot1_html','s5_foot2_html','s5_foot3_html','s6_uc2_desc_html','s7_h2_html']);
@@ -3671,25 +3676,27 @@ function applyLang(lang) {
     }
   });
 
+  // Adjust title font size for FR
+  const titleMain = document.querySelector('.title-main');
+  if (titleMain) titleMain.classList.toggle('fr-title', lang === 'fr');
+
   // Button shows CURRENT language
   const btn = document.getElementById('langToggle');
   if (btn) btn.textContent = lang.toUpperCase();
 
   document.documentElement.lang = lang;
-  currentLang = lang;
-  // Refresh language-aware JS data arrays
-  if (typeof getLimDetails === 'function') limDetails = getLimDetails();
-  if (typeof getIucData === 'function') iucData = getIucData();
-  if (typeof getUcData === 'function') ucData = getUcData();
+  window.currentLang = lang;
+  // Refresh language-aware JS data arrays via closures registered in Block 1
+  (window._i18nRefreshers || []).forEach(fn => fn());
   try { localStorage.setItem('kphi_lang', lang); } catch(e) {}
 }
 
 function toggleLang() {
-  applyLang(currentLang === 'en' ? 'fr' : 'en');
+  applyLang(window.currentLang === 'en' ? 'fr' : 'en');
 }
 
 // DOM already ready — delay 1 tick to ensure full paint
-setTimeout(() => applyLang(currentLang), 0);
+setTimeout(() => applyLang(window.currentLang), 0);
 
 (function() {
   const btn = document.getElementById('langToggle');
