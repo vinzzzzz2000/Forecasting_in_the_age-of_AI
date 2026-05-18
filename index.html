@@ -640,8 +640,8 @@
   body.light .lim-overlay-inner { background: #EBEDF0; border-color: rgba(0,0,0,0.18); }
   body.light .uc-card { background: #E2E4E9; border-color: rgba(0,0,0,0.14); }
   body.light .uc-overlay-inner { background: #EBEDF0; border-color: rgba(0,0,0,0.18); }
-  body.light .uc-rule { background: rgba(0,0,0,0.04); }
-  body.light .uc-ov-rule { background: rgba(0,0,0,0.04); }
+  body.light .uc-rule { background: rgba(0,0,0,0.04); border-left-color: var(--yellow) !important; }
+  body.light .uc-ov-rule { background: rgba(0,0,0,0.04); border-left-color: var(--yellow) !important; }
   body.light .s4-video-btn { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.2); color: #0D1018; }
   body.light .model-card { background: #E2E4E9; border-color: rgba(0,0,0,0.14); }
   body.light .pill-list li { border-bottom-color: rgba(0,0,0,0.07); }
@@ -650,6 +650,35 @@
   body.light .progress-bar { background: rgba(0,0,0,0.08); }
   body.light #s4VideoModal { background: rgba(0,0,0,0.6); }
   body.light #s4VideoModal > div { background: #EBEDF0; border-color: rgba(0,0,0,0.18); }
+
+  /* ── Light mode: fix all hardcoded yellow ── */
+  body.light .tai-stage { border-color: rgba(26,58,107,0.25) !important; }
+  body.light .tai-arrow-inner span { color: var(--yellow) !important; text-shadow: none !important; }
+  body.light .tai-op-pill { color: var(--yellow) !important; border-color: rgba(26,58,107,0.2) !important; background: rgba(26,58,107,0.06) !important; }
+  body.light .tai-model-dot { background: var(--yellow) !important; }
+  body.light .tai-model-name { color: var(--yellow) !important; }
+  body.light .s2-demo-link { color: var(--yellow) !important; border-color: rgba(26,58,107,0.3) !important; background: rgba(26,58,107,0.06) !important; }
+  body.light .uc-badge.mvp { color: var(--yellow) !important; border-color: rgba(26,58,107,0.3) !important; background: rgba(26,58,107,0.06) !important; }
+  body.light .uc-ov-badge.mvp { color: var(--yellow) !important; border-color: rgba(26,58,107,0.3) !important; background: rgba(26,58,107,0.06) !important; }
+  body.light .s2-chart-tag { color: var(--muted) !important; }
+  /* Slide 5: stage tags, titles, feet */
+  body.light .tai-stage-tag { color: var(--yellow) !important; }
+  body.light .tai-stage-title .accent { color: var(--yellow) !important; }
+  body.light .tai-stage-foot span { color: var(--yellow) !important; }
+  body.light .tai-bottom-label { color: var(--yellow) !important; }
+  body.light .tai-model-desc { color: var(--muted) !important; }
+  /* Slide 7: video labels */
+  body.light .s4-video-btn { color: var(--yellow) !important; border-color: rgba(26,58,107,0.3) !important; background: rgba(26,58,107,0.06) !important; }
+  /* Slide 8: boxes, studio labels */
+  body.light .box-title { color: var(--yellow) !important; }
+  body.light .sh-label { color: var(--yellow) !important; }
+  body.light .alp-link { color: var(--yellow) !important; border-color: rgba(26,58,107,0.3) !important; }
+  /* Slide 9: override ALL inline yellows via descendant selectors */
+  body.light #s9 [style*="rgba(230,255,0"] { border-color: rgba(26,58,107,0.25) !important; }
+  body.light #s9 [style*="color:var(--yellow)"] { color: var(--yellow) !important; }
+  body.light #s9 .s9-pill { background: rgba(26,58,107,0.08) !important; border-color: rgba(26,58,107,0.25) !important; }
+  body.light #s9 .s9-hitl { border-color: rgba(26,58,107,0.5) !important; background: rgba(26,58,107,0.06) !important; box-shadow: none !important; }
+  body.light #s9 .ai-glow { color: var(--yellow) !important; text-shadow: none !important; }
 
   /* Theme toggle button */
   #themeToggle {
@@ -1314,9 +1343,9 @@
       </div>
       <span style="color:var(--yellow);font-size:clamp(28px,4.5vh,46px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
       <!-- Human in the Loop gate -->
-      <div class="s9-hitl" style="background:rgba(230,180,0,0.06);border:2px solid rgba(230,180,0,0.6);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(16px,2vw,28px);text-align:center;">
+      <div class="s9-hitl" style="background:rgba(230,180,0,0.06);border:2px solid var(--yellow);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(16px,2vw,28px);text-align:center;">
         <div style="font-size:clamp(24px,3.5vh,38px);margin-bottom:4px;">🛡️</div>
-        <div style="font-family:var(--font-mono);font-size:clamp(10px,1.2vh,13px);letter-spacing:0.12em;color:rgba(230,180,0,0.9);" data-i18n="s9_hitl_label">HUMAN APPROVAL</div>
+        <div style="font-family:var(--font-mono);font-size:clamp(10px,1.2vh,13px);letter-spacing:0.12em;color:var(--yellow);" data-i18n="s9_hitl_label">HUMAN APPROVAL</div>
       </div>
       <span style="color:var(--yellow);font-size:clamp(28px,4.5vh,46px);animation:arrowFlow 1.6s ease-in-out infinite;display:inline-block;">→</span>
       <div style="background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:clamp(12px,1.8vh,22px) clamp(18px,2vw,32px);">
@@ -1336,7 +1365,7 @@
       <span style="color:var(--muted);">→</span>
       <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(230,255,0,0.08);border:1px solid rgba(230,255,0,0.25);border-radius:5px;padding:6px 16px;">Answer</span>
       <span style="color:var(--muted);">→</span>
-      <span class="s9-pill" style="color:rgba(230,180,0,0.9);font-weight:700;background:rgba(230,180,0,0.08);border:1px solid rgba(230,180,0,0.25);border-radius:5px;padding:6px 16px;">✓ Validate</span>
+      <span class="s9-pill" style="color:var(--yellow);font-weight:700;background:rgba(26,58,107,0.08);border:1px solid currentColor;border-radius:5px;padding:6px 16px;">✓ Validate</span>
       <span style="color:var(--muted);font-size:clamp(12px,1.5vh,16px);margin-left:6px;" data-i18n="s9_loop_repeat">↻ loops until complete</span>
     </div>
 
